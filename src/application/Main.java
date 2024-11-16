@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Scale;
 
 public class Main extends Application {
 	
@@ -16,9 +17,17 @@ public class Main extends Application {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("/views/Main.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resource/Motoverse_Logo-removebg-preview.png")));
+			
+//			Scale scale = new Scale();
+//	        root.getTransforms().add(scale);
+//	        
+//	        scale.xProperty().bind(scene.widthProperty().divide(800)); 
+//	        scale.yProperty().bind(scene.heightProperty().divide(600));
+			
+	        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resource/Motoverse Logo.png")));
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(true);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
