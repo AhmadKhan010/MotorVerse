@@ -1,4 +1,3 @@
-/views/
 /controllers/
-/application/
-/resource/
+/dao/
+/views/
