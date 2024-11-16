@@ -1,1 +1,16 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+/* Opening Page */
+.progress-indicator {
+    -fx-progress-color: blue;
+    -fx-background-color: transparent;
+}
+.progress-indicator .percentage {
+    -fx-opacity: 0; /* Hides the percentage */
+}
+
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #F5F5F5, #FFFFFF);
+}
+
