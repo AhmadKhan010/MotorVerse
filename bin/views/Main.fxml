@@ -11,7 +11,7 @@
    <children>
       <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@..\resource\Motoverse_Logo-removebg-preview.png" />
+            <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
          </image>
       </ImageView>
       <Label layoutX="509.0" layoutY="355.0" prefHeight="30.0" prefWidth="50.0" text="Loading">
