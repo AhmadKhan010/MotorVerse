@@ -13,12 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Login {
 
     @FXML
-    private AnchorPane rootPane; // The parent AnchorPane
+    private BorderPane rootPane; // The parent AnchorPane
     private Stage stage;
     private Scene scene;
 
@@ -69,7 +70,7 @@ public class Login {
 		
 		// If the user exists, switch to the main screen
 		if (exists) {
-			Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); // Load the main.fxml file
+			Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); 
 			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
 			scene = new Scene(root); // Set the new scene
 			stage.setScene(scene); // Apply the new scene to the stage
@@ -97,4 +98,3 @@ public class Login {
     
     
 }
-

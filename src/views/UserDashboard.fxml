@@ -1,16 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="dashboardRoot" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFB347;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="183.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome User" wrappingWidth="219.84649658203125">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
+      <!-- Header Pane -->
+      <AnchorPane prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: #D3D3D3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="120.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="650.0" layoutY="35.0" text="Welcome, User!" textFill="ORANGERED">
+               <font>
+                  <Font name="Orbitron Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      
+      <!-- Sidebar Navigation -->
+      <VBox prefWidth="200.0" style="-fx-background-color: #D3D3D3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FFB347; -fx-text-fill: white; -fx-font-size: 14px;" text="Buy a Car" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FFB347; -fx-text-fill: white; -fx-font-size: 14px;" text="Rent a Car" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FFB347; -fx-text-fill: white; -fx-font-size: 14px;" text="Sell a Car" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FFB347; -fx-text-fill: white; -fx-font-size: 14px;" text="View History" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FFB347; -fx-text-fill: white; -fx-font-size: 14px;" text="Logout" />
+         </children>
+      </VBox>
+      
+      <!-- Main Content Area -->
+      <AnchorPane style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" AnchorPane.leftAnchor="200.0">
+         <children>
+            <Label layoutX="20.0" layoutY="20.0" text="Dashboard" textFill="ORANGERED">
+               <font>
+                  <Font name="Orbitron Bold" size="20.0" />
+               </font>
+            </Label>
+            <HBox layoutX="20.0" layoutY="60.0" spacing="20.0">
+               <!-- Placeholder Card 1 -->
+               <VBox alignment="CENTER" spacing="10.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #FFB347; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <children>
+                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../resource/car_icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label text="Buy a Car" textFill="white">
+                        <font>
+                           <Font name="Orbitron Bold" size="14.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+               
+               <!-- Placeholder Card 2 -->
+               <VBox alignment="CENTER" spacing="10.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #FFB347; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <children>
+                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../resource/car_rent_icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label text="Rent a Car" textFill="white">
+                        <font>
+                           <Font name="Orbitron Bold" size="14.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+               
+               <!-- Placeholder Card 3 -->
+               <VBox alignment="CENTER" spacing="10.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #FFB347; -fx-background-radius: 10; -fx-border-radius: 10;">
+                  <children>
+                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../resource/car_sell_icon.png" />
+                        </image>
+                     </ImageView>
+                     <Label text="Sell a Car" textFill="white">
+                        <font>
+                           <Font name="Orbitron Bold" size="14.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+            </HBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
