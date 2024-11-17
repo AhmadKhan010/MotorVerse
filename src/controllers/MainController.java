@@ -20,7 +20,7 @@ public class MainController {
     @FXML
     public void initialize() {
         // Add a delay of 2 seconds, then switch to the login scene
-        PauseTransition delay = new PauseTransition(Duration.seconds(20));
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> switchToLogin());
         delay.play();
     }
