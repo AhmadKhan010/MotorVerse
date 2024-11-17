@@ -5,20 +5,31 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="OpeningBack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-   <children>
-      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="509.0" layoutY="355.0" prefHeight="30.0" prefWidth="50.0" text="Loading">
-         <font>
-            <Font name="Arial" size="12.0" />
-         </font>
-      </Label>
-      <ProgressIndicator layoutX="550.0" layoutY="359.0" prefHeight="23.0" prefWidth="43.0" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="594.0" prefWidth="945.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <center>
+      <AnchorPane fx:id="OpeningBack" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="logo" fitHeight="240.0" fitWidth="501.0" layoutX="180.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="845.8000000000001" layoutY="154.4" prefHeight="30.0" prefWidth="50.0" text="Loading" AnchorPane.bottomAnchor="15.199999999999989" AnchorPane.rightAnchor="49.39999999999998">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Label>
+            <ProgressIndicator layoutX="888.0" layoutY="158.0" prefHeight="23.0" prefWidth="43.0" AnchorPane.bottomAnchor="18.80000000000001" AnchorPane.rightAnchor="14.399999999999977" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
