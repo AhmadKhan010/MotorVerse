@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="594.0" prefWidth="945.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <center>
       <AnchorPane fx:id="OpeningBack" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ImageView fx:id="logo" fitHeight="240.0" fitWidth="501.0" layoutX="180.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo" fitHeight="240.0" fitWidth="501.0" layoutX="186.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
                </image>
