@@ -33,6 +33,7 @@ public class UserDAO {
         }
     }
     
+    // Check if email already exists in the database
 	public boolean checkEmail(String email) {
 		String sql = "SELECT * FROM Users WHERE email = ?";
 		try (Connection conn = DatabaseConnection.getConnection();
@@ -45,6 +46,7 @@ public class UserDAO {
 		}
 	}
 	
+	// Check if name already exists in the database
 	public boolean checkName(String name) {
 		String sql = "SELECT * FROM Users WHERE name = ?";
 		try (Connection conn = DatabaseConnection.getConnection();
@@ -57,10 +59,11 @@ public class UserDAO {
 		}
 	}
 	
+	//Return true if user with name and password exists in the database
 	public boolean checkUser(String name,String password)
 	{
-		//Return true if user with name and password exists in the database
-		String sql = "SELECT * FROM Users WHERE name = ? AND password = ?";
+		
+		String sql = "SELECT * FROM Users WHERE name = ? AND password = ? ";
 		try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 			// Set query parameters
@@ -81,6 +84,25 @@ public class UserDAO {
             return false;
 		
         }
+	}
+	
+	//Return user object with provided name
+	public User getUser(String name) {
+		String sql = "SELECT * FROM Users WHERE name = ?";
+		try (Connection conn = DatabaseConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, name);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"),
+						rs.getString("password"), rs.getString("phone_number"), rs.getString("address"),
+						rs.getString("role"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
     
 }
