@@ -9,29 +9,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utils.SessionManager;
 
 public class Login {
 
-    @FXML
-    private BorderPane rootPane; // The parent AnchorPane
+    @FXML private BorderPane rootPane; // The parent AnchorPane
     private Stage stage;
     private Scene scene;
 
     @FXML
     private AnchorPane OpeningBack;
     @FXML
-    private Label loginLabel; // The "LOG IN" Label
+    private Button loginLabel; // The "LOG IN" Label
     @FXML private TextField nameField;
     @FXML private PasswordField passwordField;
     
     
-
+    	
     @FXML
     public void initialize() {
         // Bind font size dynamically to the height of the root pane
@@ -70,6 +71,10 @@ public class Login {
 		
 		// If the user exists, switch to the main screen
 		if (exists) {
+			// Save the current user in the session
+			SessionManager.getInstance().setLoggedInUser(name);
+			SessionManager.getInstance().setCurrentUser(userDAO.getUser(name));
+			
 			Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); 
 			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
 			scene = new Scene(root); // Set the new scene
@@ -85,6 +90,17 @@ public class Login {
 		
 	}
 	
+	 public void switchToAdminLogin(ActionEvent event) throws IOException {
+		    // Load the Admin Login FXML file.
+		    Parent root = FXMLLoader.load(getClass().getResource("/views/AdminLogin.fxml"));
+		    stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage.
+		    scene = new Scene(root); // Set the new scene with the admin login page.
+		    stage.setScene(scene); // Apply the scene to the stage.
+		    stage.setResizable(true); // Optional: Allow resizing if needed.
+		    stage.show(); // Show the stage with the new scene.
+		}
+	
+	
 	 private void showAlert(String title, String message, Alert.AlertType type) {
 	        Alert alert = new Alert(type);
 	        alert.setTitle(title);
@@ -98,3 +114,4 @@ public class Login {
     
     
 }
+
