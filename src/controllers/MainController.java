@@ -30,7 +30,7 @@ public class MainController {
             Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml")); // Load the login.fxml file
             stage = (Stage) OpeningBack.getScene().getWindow(); // Get the current stage
             scene = new Scene(root); // Set the new scene
-	        
+            scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
             stage.setScene(scene); // Apply the new scene to the stage
             stage.setResizable(true);
             stage.show(); // Show the stage
