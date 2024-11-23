@@ -10,9 +10,22 @@ public class RentalAgreement {
     private String insuranceType;
     private double premium;
     private int sellerId;
+    private String return_status;
 
     public RentalAgreement( int renterId, int vehicleId, String rentalPeriod, double rentalCost, String insuranceType, double premium, int sellerId) {
         
+        this.renterId = renterId;
+       // this.renterName = renterName;
+        this.vehicleId = vehicleId;
+        this.rentalPeriod = rentalPeriod;
+        this.rentalCost = rentalCost;
+        this.insuranceType = insuranceType;
+        this.premium = premium;
+        this.sellerId = sellerId;
+    }
+    
+public RentalAgreement(int rentalId, int renterId, int vehicleId, String rentalPeriod, double rentalCost, String insuranceType, double premium, int sellerId) {
+        this.rentalId = rentalId;
         this.renterId = renterId;
        // this.renterName = renterName;
         this.vehicleId = vehicleId;
@@ -125,5 +138,13 @@ public class RentalAgreement {
 	public void setSellerId(int sellerId) {
 		// TODO Auto-generated method stub
 		this.sellerId = sellerId;
+	}
+	
+	public String getReturn_status() {
+		return return_status;
+	}
+	
+	public void setReturn_status(String return_status) {
+		this.return_status = return_status;
 	}
 }

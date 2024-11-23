@@ -77,4 +77,30 @@ public class ListingDAO {
             return false;
         }
     }
+    
+    public void insertListing(Listing listing)
+    {
+		String query = """
+				    INSERT INTO Listings (seller_id, vehicle_id, price, rental_price, description, listing_type, image_path)
+				    VALUES (?, ?, ?, ?, ?, ?,?)
+				""";
+
+		try (Connection conn = DatabaseConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
+
+			stmt.setInt(1, listing.getSellerId());
+			stmt.setInt(2, listing.getVehicleId());
+			stmt.setBigDecimal(3, listing.getPrice());
+			stmt.setBigDecimal(4, listing.getRentalPrice());
+			stmt.setString(5, listing.getDescription());
+			stmt.setString(6, listing.getListingType());
+			stmt.setString(7, listing.getImagePath());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    
+    
 }

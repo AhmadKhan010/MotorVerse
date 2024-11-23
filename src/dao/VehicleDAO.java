@@ -85,12 +85,12 @@ public class VehicleDAO {
     
     
     
-    public int vehicleExists(String make,String model)
+    public int vehicleExists(String make,String model,int year)
     {
     	String query = """
                 SELECT v.vehicle_id
                 FROM Vehicles v
-                WHERE v.make = ? AND v.model = ?
+                WHERE v.make = ? AND v.model = ? AND v.year = ?
             """;
     	
     	try (Connection conn = utils.DatabaseConnection.getConnection();
@@ -98,6 +98,7 @@ public class VehicleDAO {
         	
             stmt.setString(1, make);
             stmt.setString(2, model);
+            stmt.setInt(3, year);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("vehicle_id");
@@ -108,7 +109,7 @@ public class VehicleDAO {
     	        return 0;
     }
     
-    public void addVehicle(Vehicle vehicle)
+    public int addVehicle(Vehicle vehicle)
     {
     	String query = """
                 INSERT INTO Vehicles (make, model, year, price, rental_price, average_rating, status)
@@ -128,16 +129,49 @@ public class VehicleDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             }
+    	//return the id of the vehicle that was just added
+    	return vehicleExists(vehicle.getMake(), vehicle.getModel(), vehicle.getYear());
     	
     }
     
+    public String getVehicleName(int vehicleId)
+    {
+    	String query = """
+                SELECT v.make, v.model
+                FROM Vehicles v
+                WHERE v.vehicle_id = ?
+            """;
+    	
+    	try (Connection conn = utils.DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+        	
+            stmt.setInt(1, vehicleId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("make") + " " + rs.getString("model");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            }
+    	        return null;
+    }
     
-    
-    
-    
-    
-    
-    
-    
+	public void updateVehicleStatus(int vehicleId, String status) {
+		String query = """
+				    UPDATE Vehicles
+				    SET status = ?
+				    WHERE vehicle_id = ?
+				""";
+
+		try (Connection conn = utils.DatabaseConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
+
+			stmt.setString(1, status);
+			stmt.setInt(2, vehicleId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

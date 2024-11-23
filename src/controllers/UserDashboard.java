@@ -52,6 +52,8 @@ public class UserDashboard {
 	private String currentRole="User";
 	
 	public void initialize() throws SQLException {
+		
+		
         VehicleDAO = new VehicleDAO();
 //        makeFilter.setDisable(true);
 //        yearFilter.setDisable(true);
@@ -142,6 +144,22 @@ public class UserDashboard {
 		
 	}
 	
+	public void handleSellCar()
+	{
+		System.out.println("Sell Car Button Clicked");
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/SellCar.fxml")); 
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 	
 	
 	
@@ -248,7 +266,7 @@ public class UserDashboard {
 	        vehicleGrid.add(vehicleCard, col, row); // Add to GridPane at (col, row)
 
 	        col++;  // Move to the next column
-	        if (col >= 3) {  // After 3 items, move to the next row
+	        if (col >= 1) {  // After 3 items, move to the next row
 	            col = 0;
 	            row++;
 	        }
@@ -278,7 +296,9 @@ public class UserDashboard {
 
 			// Open the new scene
 			Stage stage = (Stage) rootPane.getScene().getWindow();
-			stage.setScene(new Scene(root));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene);
 			stage.setTitle("Buy Vehicle - " + dto.getMake() + " " + dto.getModel());
 			stage.show();
 
@@ -287,6 +307,58 @@ public class UserDashboard {
 	        e.printStackTrace();
 	        e.getCause();
 	    }
+	}
+	
+	
+	public void returnVehicle()
+	{
+		try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ReturnVehicle.fxml"));
+            stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(root); // Set the new scene
+            scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+            stage.setScene(scene); // Apply the new scene to the stage
+            stage.setResizable(true);
+            stage.show(); // Show the stage
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public void viewHistory()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/ViewHistory.fxml"));
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void buyAutoParts()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/AutoParts.fxml"));
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 	
 	
