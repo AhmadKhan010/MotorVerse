@@ -208,7 +208,7 @@
                   <Insets right="10.0" />
                </padding>
             </AnchorPane>
-            <AnchorPane fx:id="debitCardTab" focusTraversable="true" layoutX="21.0" layoutY="141.0" prefHeight="538.0" prefWidth="334.0" style="-fx-background-color: d4d4d4;" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="130.0">
+            <AnchorPane fx:id="debitCardTab" focusTraversable="true" layoutX="21.0" layoutY="141.0" prefHeight="538.0" prefWidth="334.0" style="-fx-background-color: d4d4d4;" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="130.0">
                <children>
                   <ImageView fitHeight="176.0" fitWidth="291.0" pickOnBounds="true" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="10.0">
                      <image>
@@ -271,7 +271,7 @@
                   <Insets right="10.0" />
                </padding>
             </AnchorPane>
-            <AnchorPane fx:id="debitCardTab1" layoutX="31.0" layoutY="151.0" prefHeight="538.0" prefWidth="334.0" style="-fx-background-color: d4d4d4;" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="130.0">
+            <AnchorPane fx:id="debitCardTab1" layoutX="31.0" layoutY="151.0" prefHeight="538.0" prefWidth="334.0" style="-fx-background-color: d4d4d4;" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="130.0">
                <children>
                   <ImageView fitHeight="95.0" fitWidth="161.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="14.0">
                      <image>

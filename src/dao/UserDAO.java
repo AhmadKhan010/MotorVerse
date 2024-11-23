@@ -33,6 +33,30 @@ public class UserDAO {
         }
     }
     
+    
+    public boolean updateUser(User user) {
+        String sql = "UPDATE Users SET name = ?, email = ?, phone_number = ?, address = ?, password = ? WHERE user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set parameters for the prepared statement
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPhoneNumber());
+            stmt.setString(4, user.getAddress());
+            stmt.setString(5, user.getPassword());
+            stmt.setInt(6, user.getUserId());
+
+            // Execute the update query
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
     // Check if email already exists in the database
 	public boolean checkEmail(String email) {
 		String sql = "SELECT * FROM Users WHERE email = ?";

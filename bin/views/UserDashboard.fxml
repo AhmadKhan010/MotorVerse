@@ -25,17 +25,18 @@
                <children>
                   <ScrollPane centerShape="false" layoutX="-0.5" layoutY="-0.5" pannable="true" prefHeight="800.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <content>
-                        <GridPane fx:id="vehicleGrid" gridLinesVisible="true" hgap="20.0" prefHeight="1180.0" prefWidth="1000.0" vgap="40.0">
+                        <GridPane fx:id="vehicleGrid" gridLinesVisible="true" hgap="20.0" prefHeight="1180.0" prefWidth="1000.0" vgap="60.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="549.6000122070312" minHeight="10.0" prefHeight="487.200048828125" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="480.8000122070312" minHeight="10.0" prefHeight="467.199951171875" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
+                           <padding>
+                              <Insets bottom="50.0" />
+                           </padding>
                         </GridPane>
                      </content>
                      <opaqueInsets>
@@ -52,13 +53,13 @@
          <children>
             <AnchorPane layoutY="10.4" prefHeight="99.2" prefWidth="1435.2" style="-fx-background-color: FFB347;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="logoutButton" layoutX="1366.0" layoutY="24.0" mnemonicParsing="false" text="Logout" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="24.0" />
+                  <Button fx:id="logoutButton" layoutX="1229.0" layoutY="24.8" mnemonicParsing="false" onAction="#handleLogout" prefHeight="34.0" prefWidth="119.0" style="-fx-border-color: #ff4500; -fx-background-color: transparent; -fx-border-image-width: 15; -fx-border-radius: 6;" text="Logout" textFill="RED" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="25.0" />
                   <ImageView fx:id="logo" fitHeight="80.0" fitWidth="77.0" layoutX="15.2" layoutY="-1.6" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="-2.0">
                      <image>
                         <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="welcomeLabel" layoutX="616.0" layoutY="29.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="User Dashboard" AnchorPane.leftAnchor="616.0000000000001" AnchorPane.rightAnchor="616.8000000000001" AnchorPane.topAnchor="29.0">
+                  <Label fx:id="welcomeLabel" layoutX="616.0" layoutY="29.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="User Dashboard" textFill="#0d0d0d" AnchorPane.leftAnchor="616.0000000000001" AnchorPane.rightAnchor="616.8000000000001" AnchorPane.topAnchor="29.0">
                      <font>
                         <Font name="Orbitron Bold" size="22.0" />
                      </font>
@@ -73,7 +74,7 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="800.0" prefWidth="235.0" style="-fx-background-color: #f7f4f2;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="800.0" prefWidth="235.0" style="-fx-background-color: FFB347;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="buyCarButton" defaultButton="true" mnemonicParsing="false" onAction="#handleBuyCar" prefHeight="48.0" prefWidth="241.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buy a Vehicle" textFill="ORANGERED">
                            <VBox.margin>
@@ -97,7 +98,7 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="sellCarButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="244.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Sell a Vehicle" textFill="ORANGERED">
+                        <Button fx:id="sellCarButton" mnemonicParsing="false" onAction="#handleSellCar" prefHeight="48.0" prefWidth="244.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Sell a Vehicle" textFill="ORANGERED">
                            <VBox.margin>
                               <Insets bottom="10.0" top="20.0" />
                            </VBox.margin>
@@ -108,7 +109,7 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="History" textFill="ORANGERED">
+                        <Button fx:id="historyButton" mnemonicParsing="false" onAction="#returnVehicle" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Return a Vehicle" textFill="ORANGERED">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
@@ -195,6 +196,32 @@
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #d4d4d4;" stylesheets="@../application/application.css" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFB347;" stylesheets="@../application/application.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="historyButton1" layoutY="44.0" mnemonicParsing="false" onAction="#viewHistory" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="View History" textFill="ORANGERED">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Orbitron Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="historyButton11" layoutY="128.0" mnemonicParsing="false" onAction="#buyAutoParts" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buy Auto Parts" textFill="ORANGERED">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Orbitron Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="historyButton111" layoutY="222.0" mnemonicParsing="false" onAction="#handleProfileManagement" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Profile Management" textFill="ORANGERED">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="Orbitron Bold" size="18.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
    </right>
 </BorderPane>

@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,6 +26,8 @@ import javafx.stage.Stage;
 import models.Vehicle;
 import models.VehicleListingDTO;
 import utils.SessionManager;
+import javafx.scene.Node ;
+
 
 public class UserDashboard {
 
@@ -52,6 +55,8 @@ public class UserDashboard {
 	private String currentRole="User";
 	
 	public void initialize() throws SQLException {
+		
+		
         VehicleDAO = new VehicleDAO();
 //        makeFilter.setDisable(true);
 //        yearFilter.setDisable(true);
@@ -92,7 +97,47 @@ public class UserDashboard {
         //loadVehicles();
     }
 
+	// Add this method to handle the Profile Management button click
+	@FXML
+	private void handleProfileManagement(ActionEvent event) {
+	    try {
+	        Parent root = FXMLLoader.load(getClass().getResource("/views/ProfileManagement.fxml"));
+	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        stage.setScene(new Scene(root));
+	        stage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Failed to load the Profile Management view.", Alert.AlertType.ERROR);
+	    }
+	}
+
 	
+	private void refreshHeaderName() {
+	    String updatedUsername = SessionManager.getInstance().getLoggedInUser(); // Get the updated user name
+	    if (updatedUsername != null) {
+	        welcomeLabel.setText("Welcome, " + updatedUsername + "!");
+	    } else {
+	        showAlert("Error", "Failed to refresh user name. Please reload the application.", Alert.AlertType.ERROR);
+	    }
+	}
+	
+	@FXML
+    private void handleLogout(ActionEvent event) throws IOException {
+        SessionManager.getInstance().setLoggedInUser(null);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+	
+	  private void showAlert(String title, String message, Alert.AlertType type) {
+	        Alert alert = new Alert(type);
+	        alert.setTitle(title);
+	        alert.setContentText(message);
+	        alert.showAndWait();
+	    }
+
 	
 	public void handleBuyCar() {
 		System.out.println("Buy Car Button Clicked");
@@ -142,6 +187,22 @@ public class UserDashboard {
 		
 	}
 	
+	public void handleSellCar()
+	{
+		System.out.println("Sell Car Button Clicked");
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/SellCar.fxml")); 
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 	
 	
 	
@@ -248,7 +309,7 @@ public class UserDashboard {
 	        vehicleGrid.add(vehicleCard, col, row); // Add to GridPane at (col, row)
 
 	        col++;  // Move to the next column
-	        if (col >= 3) {  // After 3 items, move to the next row
+	        if (col >= 1) {  // After 3 items, move to the next row
 	            col = 0;
 	            row++;
 	        }
@@ -278,7 +339,9 @@ public class UserDashboard {
 
 			// Open the new scene
 			Stage stage = (Stage) rootPane.getScene().getWindow();
-			stage.setScene(new Scene(root));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene);
 			stage.setTitle("Buy Vehicle - " + dto.getMake() + " " + dto.getModel());
 			stage.show();
 
@@ -287,6 +350,67 @@ public class UserDashboard {
 	        e.printStackTrace();
 	        e.getCause();
 	    }
+	}
+	
+	
+	public void returnVehicle()
+	{
+		try {
+            Parent root = FXMLLoader.load(getClass().getResource("/views/ReturnVehicle.fxml"));
+            stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+            Scene scene = new Scene(root); // Set the new scene
+            scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+            stage.setScene(scene); // Apply the new scene to the stage
+            stage.setResizable(true);
+            stage.show(); // Show the stage
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public void viewHistory()
+	{
+		try {
+			 Parent root = FXMLLoader.load(getClass().getResource("/views/ViewHistory.fxml"));
+
+		        // Create a new stage for the ViewHistory page
+		        Stage newStage = new Stage();
+		        newStage.setTitle("View History");
+
+		        // Set the scene for the new stage
+		        Scene scene = new Scene(root);
+		        scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		        newStage.setScene(scene);
+
+		        // Optional: Set stage properties
+		        newStage.setResizable(true);
+
+		        // Show the new stage
+		        newStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void buyAutoParts()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/AutoParts.fxml"));
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			//scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 	
 	
