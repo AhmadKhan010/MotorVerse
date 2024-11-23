@@ -1,13 +1,17 @@
 package controllers;
 
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import dao.RentalAgreementDAO;
 import dao.VehicleDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -216,7 +220,16 @@ public class ReturnVehicle {
 			            vehicleDisplayVbox.getChildren().add(wrapper);
 			        }
 			}
-
+			
+			public void handleBack(ActionEvent event) throws IOException {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
+				Parent root = loader.load();
+				Stage stage = (Stage) rootPane.getScene().getWindow();
+				stage.setScene(new Scene(root));
+				stage.setTitle("User Dashboard - ");
+				stage.show();
+				
+			}
 		
 	
 }

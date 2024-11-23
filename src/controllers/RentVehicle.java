@@ -271,6 +271,17 @@ public class RentVehicle {
 	    
 	}
     
+	public void handleBack() throws IOException
+	{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
+		Parent root = loader.load();
+		Stage stage = (Stage) rootPane.getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.setTitle("User Dashboard - ");
+		stage.show();
+		
+		
+	}
     
 
     private void showAlert(String title, String message, Alert.AlertType type) {

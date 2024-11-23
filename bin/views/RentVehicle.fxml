@@ -73,6 +73,7 @@
                   <ComboBox fx:id="insuranceOptionBox" layoutX="362.0" layoutY="175.0" prefWidth="150.0" promptText="Select Option" style="-fx-background-color: #f7c42a;" />
                   <TextArea fx:id="descriptionArea" layoutX="19.0" layoutY="125.0" prefHeight="124.0" prefWidth="288.0" />
                   <ImageView fx:id="starPicture" fitHeight="34.0" fitWidth="42.0" layoutX="46.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+                  <Button layoutX="37.0" layoutY="333.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="32.0" prefWidth="101.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-border-radius: 5;" text="Back" />
                </children>
             </AnchorPane>
         </items>

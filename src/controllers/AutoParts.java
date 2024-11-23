@@ -157,7 +157,8 @@ public class AutoParts {
     @FXML
     private Label totalCost;
 
-    @FXML private Button userDashboardButton; private BorderPane rootPane;
+    @FXML private Button userDashboardButton; 
+    @FXML private BorderPane rootPane;
      
     
     int quantity;
