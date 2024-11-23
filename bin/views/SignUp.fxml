@@ -4,61 +4,140 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="643.0" style="-fx-background-color: #FFB347;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUp">
-   <children>
-      <Pane layoutX="313.0" prefHeight="425.0" prefWidth="330.0" style="-fx-background-color: #D3D3D3;">
+
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUp">
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffb347;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="95.0" layoutY="55.0" prefHeight="28.0" prefWidth="96.0" text="SIGN UP" textAlignment="CENTER" textFill="ORANGERED">
-               <font>
-                  <Font name="Orbitron Bold" size="19.0" />
-               </font>
-            </Label>
-            <TextField fx:id="nameField" layoutX="69.0" layoutY="111.0" />
-            <Label layoutX="69.0" layoutY="94.0" text="Username">
-               <font>
-                  <Font name="Orbitron Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="70.0" layoutY="187.0" text="Password">
-               <font>
-                  <Font name="Orbitron Bold" size="12.0" />
-               </font>
-            </Label>
-            <Hyperlink layoutX="47.0" layoutY="388.0" onAction="#handleLogin" text="Log In" />
-            <Hyperlink layoutX="183.0" layoutY="388.0" text="Forgot Password" />
-            <Button layoutX="101.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="25.0" prefWidth="82.0" text="Sign Up" />
-            <PasswordField fx:id="passwordField" layoutX="69.0" layoutY="204.0" />
-            <Label layoutX="69.0" layoutY="140.0" text="Email">
-               <font>
-                  <Font name="Orbitron Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="71.0" layoutY="236.0" text="Phone">
-               <font>
-                  <Font name="Orbitron Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="71.0" layoutY="290.0" text="Address">
-               <font>
-                  <Font name="Orbitron Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="emailField" layoutX="69.0" layoutY="157.0" />
-            <TextField fx:id="phoneField" layoutX="69.0" layoutY="253.0" />
-            <TextField fx:id="addressField" layoutX="69.0" layoutY="307.0" />
+            <AnchorPane layoutX="20.0" layoutY="11.2" prefHeight="779.0" prefWidth="500.0" style="-fx-background-color: #F5F1ED; -fx-background-radius: 10;" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label layoutX="217.0" layoutY="239.0" prefHeight="32.0" prefWidth="124.0" text="SIGN UP" textAlignment="CENTER">
+                     <font>
+                        <Font name="Orbitron Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameField" layoutX="179.2" layoutY="324.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="179.2" />
+                  <Label layoutX="175.8" layoutY="299.0" text="Username" AnchorPane.leftAnchor="175.8">
+                     <font>
+                        <Font name="Orbitron Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="177.4" layoutY="426.0" text="Password" AnchorPane.leftAnchor="177.4">
+                     <font>
+                        <Font name="Orbitron Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink layoutX="191.0" layoutY="692.0" onAction="#handleLogin" text="Log In" underline="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="254.0" layoutY="692.0" text="Forgot Password" underline="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Hyperlink>
+                  <Button layoutX="236.39999389648438" layoutY="632.4000244140625" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="36.0" prefWidth="81.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 10;" text="Sign Up" textFill="WHITE" />
+                  <PasswordField fx:id="passwordField" layoutX="179.2" layoutY="445.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="179.2" />
+                  <Label layoutX="177.4" layoutY="363.0" text="Email" AnchorPane.leftAnchor="177.4">
+                     <font>
+                        <Font name="Orbitron Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="177.4" layoutY="488.0" text="Phone" AnchorPane.leftAnchor="177.4">
+                     <font>
+                        <Font name="Orbitron Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="178.2" layoutY="546.0" text="Address" AnchorPane.leftAnchor="178.2">
+                     <font>
+                        <Font name="Orbitron Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="emailField" layoutX="179.2" layoutY="385.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="179.2" />
+                  <TextField fx:id="phoneField" layoutX="179.2" layoutY="506.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="179.2" />
+                  <TextField fx:id="addressField" layoutX="179.2" layoutY="563.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: transparent;" AnchorPane.leftAnchor="179.2" />
+                  <ImageView fitHeight="189.0" fitWidth="194.0" layoutX="185.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="40.0">
+                     <image>
+                        <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
+                     </image>
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" offsetY="8.0" spread="0.1">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <Separator layoutX="177.0" layoutY="351.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                     <effect>
+                        <DropShadow blurType="GAUSSIAN" offsetY="3.0">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Separator>
+                  <Separator layoutX="177.0" layoutY="412.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                     <effect>
+                        <DropShadow offsetY="3.0">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Separator>
+                  <Separator layoutX="177.0" layoutY="472.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                     <effect>
+                        <DropShadow offsetY="3.0">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Separator>
+                  <Separator layoutX="177.0" layoutY="532.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                     <effect>
+                        <DropShadow offsetY="3.0">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Separator>
+                  <Separator layoutX="177.0" layoutY="589.0" prefWidth="200.0" style="-fx-background-color: lightgrey;">
+                     <effect>
+                        <DropShadow offsetY="3.0">
+                           <color>
+                              <Color opacity="0.4000000059604645" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Separator>
+               </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" offsetX="3.0" spread="0.8">
+                     <color>
+                        <Color opacity="0.4000000059604645" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </AnchorPane>
          </children>
-      </Pane>
-      <ImageView fitHeight="108.0" fitWidth="131.0" layoutX="92.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
-         </image>
-      </ImageView>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </right>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to left, #ffb347, #B8575B);" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

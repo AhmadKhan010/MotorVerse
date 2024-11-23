@@ -28,7 +28,7 @@ public class SignUp {
 
     
 	public void initialize() {
-		rootPane.getScene().getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		//rootPane.getScene().getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
         
 	}
     
