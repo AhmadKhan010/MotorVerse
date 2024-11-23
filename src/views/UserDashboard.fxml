@@ -108,7 +108,7 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="History" textFill="ORANGERED">
+                        <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="237.0" style="-fx-background-color: #f7c42a; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" stylesheets="@../application/application.css" text="History" textFill="ORANGERED">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
