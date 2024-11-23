@@ -1,8 +1,8 @@
-/controllers/
-/services/
+/resource/
 /views/
 /application/
+/controllers/
 /dao/
 /models/
-/resource/
+/services/
 /utils/
