@@ -1,20 +1,30 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+import dao.ListingDAO;
 import dao.VehicleDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Listing;
+import models.User;
 import models.Vehicle;
 import models.VehicleListingDTO;
+import utils.SessionManager;
 
 public class SellCar {
 
@@ -44,8 +54,11 @@ public class SellCar {
 
     @FXML
     private ToggleGroup type;
+    @FXML BorderPane rootPane;
     private boolean photoUploaded = false;
     String imagePath;
+    private Stage stage;
+    private Scene scene;
     
     public void initialize()
     {
@@ -90,16 +103,22 @@ public class SellCar {
 		
 		//If a car with the same make and model already exists, don't create a new Vehicle object:
 		VehicleDAO vehicleDAO = new VehicleDAO();
-		int vehicleID = vehicleDAO.vehicleExists(Make, Model);
+		int vehicleID = vehicleDAO.vehicleExists(Make, Model,year);
 		//If vehicle doesn't exist, create a new Vehicle object:
 		if(vehicleID == 0)
 		{
 			
 			Vehicle vehicle = new Vehicle(Make, Model, year, price, 0, 0);
-			//vehicleID = vehicleDAO.addVehicle(vehicle);
+			vehicleID = vehicleDAO.addVehicle(vehicle);
 			
 		}
-     	
+		User seller = SessionManager.getInstance().getCurrentUser();
+		int sellerID = seller.getUserId();
+		BigDecimal sellingprice = new BigDecimal(price);
+		Listing listing = new Listing(sellerID, vehicleID, sellingprice, new BigDecimal(0), description, type, imagePath);
+		ListingDAO listingDAO = new ListingDAO();
+		listingDAO.insertListing(listing);
+		
      	//Show success message:
      	showAlert("Success", "Car added successfully", Alert.AlertType.INFORMATION);
      	
@@ -117,7 +136,7 @@ public class SellCar {
     public void handlePhotoUpload() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Car Photo");
-
+        
         // Set file extensions for images
         fileChooser.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
@@ -134,7 +153,18 @@ public class SellCar {
             showAlert("Error", "No photo selected", Alert.AlertType.ERROR);
         }
     }
-    
+
+	public void handleBack() throws IOException {
+		// TODO Auto-generated method stub
+		Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); // Load the login.fxml file
+        stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+        scene = new Scene(root); // Set the new scene
+        stage.setScene(scene); // Apply the new scene to the stage
+        stage.setResizable(true);
+        stage.show(); // Show the stage
+		
+	
+	}
 	
 	  private void showAlert(String title, String message, Alert.AlertType type) {
 	        Alert alert = new Alert(type);

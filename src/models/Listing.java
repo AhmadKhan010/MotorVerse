@@ -10,6 +10,7 @@ public class Listing {
     private BigDecimal rentalPrice;
     private String description;
     private String listingType;
+    private String imagePath;
 
     // Constructor
     public Listing(int listingId, int sellerId, int vehicleId, BigDecimal price, BigDecimal rentalPrice, String description, String listingType) {
@@ -21,6 +22,18 @@ public class Listing {
         this.description = description;
         this.listingType = listingType;
     }
+    
+    public Listing( int sellerId, int vehicleId, BigDecimal price, BigDecimal rentalPrice, String description, String listingType,String imagePath) {
+       
+        this.sellerId = sellerId;
+        this.vehicleId = vehicleId;
+        this.price = price;
+        this.rentalPrice = rentalPrice;
+        this.description = description;
+        this.listingType = listingType;
+        this.imagePath = imagePath;
+    }
+    
 
     // Getters and Setters
     public int getListingId() {
@@ -78,4 +91,13 @@ public class Listing {
     public void setListingType(String listingType) {
         this.listingType = listingType;
     }
+    
+	public String getImagePath() {
+		// TODO Auto-generated method stub
+		return imagePath;
+	}
+	
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
 }

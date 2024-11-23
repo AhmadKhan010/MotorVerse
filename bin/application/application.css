@@ -3,22 +3,17 @@
 
 /* Opening Page */
 .progress-indicator {
-    -fx-progress-color: #ffb347;
+    -fx-progress-color: blue;
     -fx-background-color: transparent;
 }
 .progress-indicator .percentage {
     -fx-opacity: 0; /* Hides the percentage */
 }
-/* Generic style for buttons with transparent background */
 
-/* Hover effect for buttons with transparent background */
+.anchor-pane {
+    -fx-background-color: linear-gradient(to bottom, #F5F5F5, #FFFFFF);
+}
 
-
-/* Generic style for buttons with solid #9A0F16 background */
-/*Button[style*='-fx-background-color: transparent;'] {
-    -fx-background-color: #9A0F16;
-    -fx-text-fill: white;
-}*/
 
 .button:hover {
     -fx-background-color: #3498db;

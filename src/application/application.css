@@ -13,13 +13,6 @@
 
 /* Hover effect for buttons with transparent background */
 
-
-/* Generic style for buttons with solid #9A0F16 background */
-/*Button[style*='-fx-background-color: transparent;'] {
-    -fx-background-color: #9A0F16;
-    -fx-text-fill: white;
-}*/
-
 .button:hover {
     -fx-background-color: #3498db;
     -fx-text-fill: white; /* Change text color for contrast */

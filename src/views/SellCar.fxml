@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BuyingMenu">
+<BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SellCar">
    <top>
       <AnchorPane prefHeight="75.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
@@ -109,16 +109,16 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: d4d4d4; -fx-background-radius: 10;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0">
+                              <AnchorPane layoutX="20.0" layoutY="558.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: d4d4d4; -fx-background-radius: 10;" AnchorPane.bottomAnchor="24.399999999999977" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="558.0">
                                  <children>
                                     <Label layoutX="18.0" layoutY="29.0" prefHeight="42.0" prefWidth="174.0" text="Upload Photos">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
                                     </Label>
-                                    <Pane layoutX="24.0" layoutY="75.0" prefHeight="172.0" prefWidth="403.0" style="-fx-border-color: ffb347; -fx-border-radius: 5; -fx-border-style: dashed; -fx-border-width: 3;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+                                    <Pane layoutX="20.0" layoutY="110.8" prefHeight="172.0" prefWidth="403.0" style="-fx-border-color: ffb347; -fx-border-radius: 5; -fx-border-style: dashed; -fx-border-width: 3;" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.8">
                                        <children>
-                                          <Button fx:id="photoUpload" layoutX="309.0" layoutY="72.0" mnemonicParsing="false" style="-fx-background-color: lightgreen;" text="+ Upload" />
+                                          <Button fx:id="photoUpload" layoutX="309.0" layoutY="72.0" mnemonicParsing="false" onAction="#handlePhotoUpload" style="-fx-background-color: lightgreen;" text="+ Upload" />
                                           <Label layoutX="370.0" layoutY="128.0" text="Pictures should be atleast 800x600 centre frame image" />
                                           <Circle fill="#ff5959" layoutX="358.0" layoutY="137.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
                                           <Label layoutX="54.0" layoutY="128.0" text="Photos should be in 'jpeg, jpg, png, gif' format only." />
@@ -139,8 +139,8 @@
    <bottom>
       <AnchorPane prefHeight="65.0" prefWidth="1000.0" style="-fx-background-color: ffb347;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="69.0" style="-fx-background-color: lightblue; -fx-background-radius: 50;" text="Back" />
-            <Button fx:id="submitButton" layoutX="824.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: lightblue;" text="Submit" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="37.0" prefWidth="69.0" style="-fx-background-color: lightblue; -fx-background-radius: 50;" text="Back" />
+            <Button fx:id="submitButton" layoutX="824.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: lightblue;" text="Submit" />
          </children>
       </AnchorPane>
    </bottom>

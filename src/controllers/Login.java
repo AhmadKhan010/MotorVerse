@@ -20,7 +20,7 @@ import utils.SessionManager;
 
 public class Login {
 
-    @FXML private BorderPane rootPane; // The parent AnchorPane
+    @FXML private BorderPane rootPane; // The parent BorderPane
     private Stage stage;
     private Scene scene;
 
@@ -78,7 +78,7 @@ public class Login {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); 
 			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
 			scene = new Scene(root); // Set the new scene
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 			stage.setScene(scene); // Apply the new scene to the stage
 			stage.setResizable(true);
 			stage.show(); // Show the stage
@@ -96,6 +96,7 @@ public class Login {
 		    Parent root = FXMLLoader.load(getClass().getResource("/views/AdminLogin.fxml"));
 		    stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage.
 		    scene = new Scene(root); // Set the new scene with the admin login page.
+		    scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 		    stage.setScene(scene); // Apply the scene to the stage.
 		    stage.setResizable(true); // Optional: Allow resizing if needed.
 		    stage.show(); // Show the stage with the new scene.

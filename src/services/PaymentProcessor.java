@@ -1,5 +1,7 @@
 package services;
 
-public class PaymentProcessor {
-
+public interface PaymentProcessor {
+    boolean validate();
+    void processPayment(double amount);
+    String getPaymentMethod();
 }
