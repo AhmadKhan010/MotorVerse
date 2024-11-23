@@ -112,6 +112,6 @@
       </AnchorPane>
    </right>
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFB347;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to left, #ffb347, #B8575B);" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
