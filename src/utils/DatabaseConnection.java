@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/motorverse"; // Replace with your database URL
     private static final String USER = "root"; // Replace with your MySQL username
-    private static final String PASSWORD = "Ahmedali"; // Replace with your MySQL password
+    private static final String PASSWORD = "qusai"; // Replace with your MySQL password
 
     private static Connection connection;
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PaymentMenuController">
+   <center>
+      <AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="50.0" layoutY="20.0" prefHeight="750.0" prefWidth="900.0" spacing="20.0">
+               <!-- Car Details Section -->
+               <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="900.0" spacing="20.0">
+                  <children>
+                     <ImageView fx:id="carImage" fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                     <VBox spacing="10.0">
+                        <Label fx:id="carNameLabel" text="Car Name" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                        <Label fx:id="carPriceLabel" text="Price: $" style="-fx-font-size: 16px;" />
+                        <Label fx:id="carDescriptionLabel" text="Description: ..." style="-fx-font-size: 14px;" />
+                     </VBox>
+                  </children>
+               </HBox>
+
+               <!-- Payment Methods Section -->
+               <VBox alignment="TOP_LEFT" spacing="10.0">
+                  <Label text="Choose Payment Method:" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                  <ToggleGroup fx:id="paymentToggleGroup">
+                     <VBox spacing="10.0">
+                        <RadioButton fx:id="creditCardOption" text="Credit Card" toggleGroup="$paymentToggleGroup" style="-fx-font-size: 16px;" />
+                        <RadioButton fx:id="debitCardOption" text="Debit Card" toggleGroup="$paymentToggleGroup" style="-fx-font-size: 16px;" />
+                        <RadioButton fx:id="bankTransferOption" text="Bank Transfer" toggleGroup="$paymentToggleGroup" style="-fx-font-size: 16px;" />
+                     </VBox>
+                  </ToggleGroup>
+               </VBox>
+
+               <!-- Installment Plan -->
+               <VBox alignment="TOP_LEFT" spacing="10.0">
+                  <Label text="Installments Plan:" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                  <HBox spacing="10.0" alignment="CENTER_LEFT">
+                     <Label text="Number of Months:" style="-fx-font-size: 16px;" />
+                     <ComboBox fx:id="installmentMonths" prefWidth="150.0" promptText="Select Months" />
+                  </HBox>
+                  <Label fx:id="installmentAmountLabel" text="Installment Amount: $" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+               </VBox>
+
+               <!-- Payment Buttons -->
+               <HBox alignment="CENTER" spacing="20.0">
+                  <Button fx:id="payNowButton" text="Pay Now" style="-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white;" />
+                  <Button fx:id="cancelPaymentButton" text="Cancel" style="-fx-font-size: 16px; -fx-background-color: #F44336; -fx-text-fill: white;" />
+               </HBox>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
+
+
