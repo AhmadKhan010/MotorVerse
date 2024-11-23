@@ -3,47 +3,24 @@
 
 /* Opening Page */
 .progress-indicator {
-    -fx-progress-color: blue;
+    -fx-progress-color: #ffb347;
     -fx-background-color: transparent;
 }
 .progress-indicator .percentage {
     -fx-opacity: 0; /* Hides the percentage */
 }
+/* Generic style for buttons with transparent background */
 
-.anchor-pane {
-    -fx-background-color: linear-gradient(to bottom, #F5F5F5, #FFFFFF);
-}
+/* Hover effect for buttons with transparent background */
 
-/* General */
 
-/* Top Bar */
-.top-bar {
-    -fx-background-color: #673AB7;
-}
+/* Generic style for buttons with solid #9A0F16 background */
+/*Button[style*='-fx-background-color: transparent;'] {
+    -fx-background-color: #9A0F16;
+    -fx-text-fill: white;
+}*/
 
-/* Side Menu Buttons */
-.side-menu-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-fill: #673AB7;
-    -fx-font-size: 16px;
-    -fx-font-family: 'Orbitron Bold';
+.button:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white; /* Change text color for contrast */
 }
-.side-menu-button:hover {
-    -fx-background-color: #D1C4E9;
-    -fx-text-fill: #311B92;
-}
-
-/* Apply Filters Button */
-.apply-button {
-    -fx-background-color: #FFB74D;
-    -fx-border-radius: 5px;
-    -fx-font-size: 14px;
-    -fx-text-fill: #ffffff;
-}
-.apply-button:hover {
-    -fx-background-color: #FF9800;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0.5, 0.0, 1.0);
-}
-/* Text */
-

@@ -78,6 +78,7 @@ public class Login {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/UserDashboard.fxml")); 
 			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
 			scene = new Scene(root); // Set the new scene
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene); // Apply the new scene to the stage
 			stage.setResizable(true);
 			stage.show(); // Show the stage
