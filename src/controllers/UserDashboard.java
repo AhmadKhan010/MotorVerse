@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,6 +26,8 @@ import javafx.stage.Stage;
 import models.Vehicle;
 import models.VehicleListingDTO;
 import utils.SessionManager;
+import javafx.scene.Node ;
+
 
 public class UserDashboard {
 
@@ -94,7 +97,47 @@ public class UserDashboard {
         //loadVehicles();
     }
 
+	// Add this method to handle the Profile Management button click
+	@FXML
+	private void handleProfileManagement(ActionEvent event) {
+	    try {
+	        Parent root = FXMLLoader.load(getClass().getResource("/views/ProfileManagement.fxml"));
+	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        stage.setScene(new Scene(root));
+	        stage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        showAlert("Error", "Failed to load the Profile Management view.", Alert.AlertType.ERROR);
+	    }
+	}
+
 	
+	private void refreshHeaderName() {
+	    String updatedUsername = SessionManager.getInstance().getLoggedInUser(); // Get the updated user name
+	    if (updatedUsername != null) {
+	        welcomeLabel.setText("Welcome, " + updatedUsername + "!");
+	    } else {
+	        showAlert("Error", "Failed to refresh user name. Please reload the application.", Alert.AlertType.ERROR);
+	    }
+	}
+	
+	@FXML
+    private void handleLogout(ActionEvent event) throws IOException {
+        SessionManager.getInstance().setLoggedInUser(null);
+        Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+	
+	  private void showAlert(String title, String message, Alert.AlertType type) {
+	        Alert alert = new Alert(type);
+	        alert.setTitle(title);
+	        alert.setContentText(message);
+	        alert.showAndWait();
+	    }
+
 	
 	public void handleBuyCar() {
 		System.out.println("Buy Car Button Clicked");
