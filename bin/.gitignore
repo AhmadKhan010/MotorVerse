@@ -3,3 +3,6 @@
 /views/
 /application/
 /dao/
+/models/
+/resource/
+/utils/
