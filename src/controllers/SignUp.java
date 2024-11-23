@@ -1,9 +1,17 @@
 package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import dao.UserDAO;
 import models.User;
 
@@ -14,7 +22,16 @@ public class SignUp {
     @FXML private PasswordField passwordField;
     @FXML private TextField phoneField;
     @FXML private TextField addressField;
+    @FXML private AnchorPane rootPane; // The parent AnchorPane
+    private Stage stage;
+    private Scene scene;
 
+    
+	public void initialize() {
+		rootPane.getScene().getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+        
+	}
+    
     @FXML
     private void handleSignUp(ActionEvent event) {
         // Get user input
@@ -51,6 +68,20 @@ public class SignUp {
             showAlert("Error", "Failed to register user. Try again.", Alert.AlertType.ERROR);
         }
     }
+    
+    
+    public void handleLogin() throws IOException
+    {
+    	//Navigate to the login page
+    	 Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml")); // Load the login.fxml file
+         stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+         scene = new Scene(root); // Set the new scene
+         stage.setScene(scene); // Apply the new scene to the stage
+         stage.setResizable(true);
+         stage.show(); // Show the stage
+    
+    }
+    
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);

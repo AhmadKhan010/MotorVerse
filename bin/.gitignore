@@ -1,2 +1,5 @@
+/controllers/
+/services/
 /views/
-/resource/
+/application/
+/dao/

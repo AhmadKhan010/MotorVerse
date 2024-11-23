@@ -9,4 +9,8 @@ module Motoverse {
 	opens views to javafx.fxml;
     opens controllers to javafx.fxml;
 	exports controllers to javafx.fxml;
+	
+	opens dao to javafx.base;
+	opens utils to javafx.base;
+	opens models to javafx.base;
 }
