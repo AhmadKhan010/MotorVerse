@@ -280,7 +280,7 @@
    <right>
       <AnchorPane prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: ffb347;">
          <children>
-            <AnchorPane fx:id="carpartInvoice" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="carpartInvoice" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="88.0" layoutY="23.0" prefHeight="36.0" prefWidth="192.0" text="Car Part Invoice" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="71.19999999999999" AnchorPane.topAnchor="23.0">
                      <font>
@@ -400,6 +400,11 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
+                  <Button fx:id="checkoutButton" layoutX="84.0" layoutY="594.0" mnemonicParsing="false" onAction="#checkout" prefHeight="51.0" prefWidth="177.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Checkout" textFill="WHITE" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane fx:id="paymentAnchor" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: f5f1ed; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -523,7 +528,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <Button fx:id="checkoutButton" layoutX="113.0" layoutY="63.0" mnemonicParsing="false" onAction="#checkout" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Checkout" textFill="WHITE" visible="false">
+            <Button fx:id="checkoutButton" layoutX="124.0" layoutY="625.0" mnemonicParsing="false" onAction="#checkout" prefHeight="33.0" prefWidth="118.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Checkout" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
