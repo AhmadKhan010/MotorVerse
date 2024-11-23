@@ -331,21 +331,12 @@ public class UserDashboard {
 	{
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/views/ViewHistory.fxml"));
-
-	        // Create a new stage for the ViewHistory page
-	        Stage newStage = new Stage();
-	        newStage.setTitle("View History");
-
-	        // Set the scene for the new stage
-	        Scene scene = new Scene(root);
-	        scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
-	        newStage.setScene(scene);
-
-	        // Optional: Set stage properties
-	        newStage.setResizable(true);
-
-	        // Show the new stage
-	        newStage.show();
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

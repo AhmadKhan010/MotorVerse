@@ -16,7 +16,6 @@
 
 
 .button:hover {
-    -fx-background-color: #3498db; /* Set hover color */
+    -fx-background-color: #3498db;
     -fx-text-fill: white; /* Change text color for contrast */
-    -fx-background: none; 
 }

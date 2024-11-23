@@ -280,7 +280,7 @@
    <right>
       <AnchorPane prefHeight="750.0" prefWidth="200.0" style="-fx-background-color: ffb347;">
          <children>
-            <AnchorPane fx:id="carpartInvoice" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="carpartInvoice" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.799999999999955" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="88.0" layoutY="23.0" prefHeight="36.0" prefWidth="192.0" text="Car Part Invoice" AnchorPane.leftAnchor="88.0" AnchorPane.rightAnchor="71.19999999999999" AnchorPane.topAnchor="23.0">
                      <font>
@@ -523,7 +523,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <Button fx:id="checkoutButton" layoutX="102.0" layoutY="623.0" mnemonicParsing="false" onAction="#checkout" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Checkout" textFill="WHITE">
+            <Button fx:id="checkoutButton" layoutX="113.0" layoutY="63.0" mnemonicParsing="false" onAction="#checkout" prefHeight="44.0" prefWidth="162.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Checkout" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

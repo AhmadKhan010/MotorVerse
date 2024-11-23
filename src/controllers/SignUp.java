@@ -28,7 +28,7 @@ public class SignUp {
 
     
 	public void initialize() {
-		//rootPane.getScene().getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		rootPane.getScene().getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
         
 	}
     
@@ -60,7 +60,6 @@ public class SignUp {
         // Insert the user into the database
         UserDAO userDAO = new UserDAO();
         boolean success = userDAO.insertUser(newUser);
-        
 
         if (success) {
             showAlert("Success", "User registered successfully!", Alert.AlertType.INFORMATION);
@@ -101,12 +100,6 @@ public class SignUp {
     
 	private boolean emailValidator(String email) {
 		// Email validation logic
-		 if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
-	            showAlert("Invalid Email", "Please enter a valid email address", Alert.AlertType.ERROR);
-	            return false;
-	        }
-		
-		
 		//Check if email exists in the database
 		UserDAO userDAO = new UserDAO();
 		boolean exists = userDAO.checkEmail(email);
