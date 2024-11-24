@@ -173,7 +173,7 @@ public class BuyVehicle {
         payPalTab.setVisible(!isCreditCard);
     }
 
-    public void handleConfirmCreditCard(ActionEvent event) throws SQLException {
+    public void handleConfirmCreditCard(ActionEvent event) throws SQLException, IOException {
         String name = nameField.getText().trim();
         String cardNum = cardNumber.getText().trim();
         String cvvCode = cvv.getText().trim();
@@ -221,10 +221,11 @@ public class BuyVehicle {
         insurancePackage.setText(insuranceType);
         premiumInvoice.setText("$"+totalPremium);
         totalInvoice.setText("$"+total);
-       
         
+        showAlert("Processing Payment","Processing Payment with amount $"+total+" for "+user.getName(), Alert.AlertType.INFORMATION);
         showAlert("Payment Successful", "Thank you for your payment!", Alert.AlertType.INFORMATION);
         paymentAnchor.setVisible(false); // Hide payment pane
+        endBuy();
     }
 
     public void handleConfirmPayPal(ActionEvent event) throws SQLException {
@@ -274,14 +275,16 @@ public class BuyVehicle {
         paymentAnchor.setVisible(false); // Hide payment pane
     }
     
-    public void endBuy(ActionEvent event) throws IOException {
+    public void endBuy() throws IOException {
 		invoicePane.setVisible(false);
 		//Open UserDashboard:
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/RentVehicle.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
 		Parent root = loader.load();
 		Stage stage = (Stage) rootPane.getScene().getWindow();
-		stage.setScene(new Scene(root));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		stage.setScene(scene);
 		stage.setTitle("User Dashboard - ");
 		stage.show();
 	    

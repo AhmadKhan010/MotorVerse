@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Vehicle;
@@ -44,7 +45,7 @@ public class UserDashboard {
 	@FXML private ComboBox<String> makeFilter;
 	@FXML private ComboBox<String> modelFilter;
 	@FXML private ComboBox<Integer> yearFilter;
-	@FXML private GridPane vehicleGrid;
+	@FXML private VBox vehicleGrid;
 	@FXML private Label welcomeLabel;
 	@FXML private BorderPane rootPane;
 	@FXML private Label yearLabel;
@@ -207,11 +208,12 @@ public class UserDashboard {
 	
 	
 	// Updated Function to Create a Vehicle Card
-   	private VBox createVehicleCard(VehicleListingDTO dto) {
+	private HBox createVehicleCard(VehicleListingDTO dto) {
 	    // Vehicle Image
 	    ImageView vehicleImage = new ImageView();
-	    vehicleImage.setFitWidth(200); // Set the width
-	    vehicleImage.setPreserveRatio(true); // Maintain aspect ratio
+	    vehicleImage.setFitWidth(300); // Set the width
+	    vehicleImage.setFitHeight(200);
+	    //vehicleImage.setPreserveRatio(true); // Maintain aspect ratio
 	    vehicleImage.setSmooth(true); // Enable smooth scaling
 	    
 	    // Load the image from the file path
@@ -256,11 +258,12 @@ public class UserDashboard {
 	    VBox contentBox = new VBox(5);
 	    contentBox.getChildren().addAll(makeModelLabel, yearLabel, priceLabel, descriptionLabel, sellerLabel, buyNowButton);
 	    contentBox.setAlignment(Pos.CENTER);
+	    contentBox.setPadding(new Insets(0,0,0,20));
 
 	    // Card Layout
-	    VBox cardLayout = new VBox(10); // Spacing between image and details
+	    HBox cardLayout = new HBox(10); // Spacing between image and details
 	    cardLayout.getChildren().addAll(vehicleImage, contentBox);
-	    cardLayout.setAlignment(Pos.TOP_CENTER); // Center the content within the card
+	    cardLayout.setAlignment(Pos.CENTER_LEFT); // Center the content within the card
 	    cardLayout.setPadding(new Insets(15)); // Padding inside the card
 	    cardLayout.setStyle(
 	        "-fx-border-color: orange; " +
@@ -269,7 +272,7 @@ public class UserDashboard {
 	        "-fx-background-radius: 10; " +
 	        "-fx-effect: dropshadow(gaussian, #aaaaaa, 10, 0, 2, 2);"
 	    );
-
+	    cardLayout.setPrefHeight(200);
 	    return cardLayout;
 	}
 
@@ -298,23 +301,17 @@ public class UserDashboard {
 	    
 	    // Clear previous entries in the GridPane
 	    vehicleGrid.getChildren().clear();
-	    vehicleGrid.setPadding(new Insets(20));
+	    vehicleGrid.setPadding(new Insets(10, 20, 10, 20));
+	    vehicleGrid.setSpacing(20);
 
-	    // Add the vehicles to the GridPane
-	    int row = 0;
-	    int col = 0;
-
+	    
 	    for (VehicleListingDTO dto : vehicleListings) {
-	        VBox vehicleCard = createVehicleCard(dto);
-	        vehicleGrid.add(vehicleCard, col, row); // Add to GridPane at (col, row)
+	        HBox vehicleCard = createVehicleCard(dto);
+	        //Add to Vbox vehicleGrid
+	        vehicleGrid.getChildren().add(vehicleCard);
 
-	        col++;  // Move to the next column
-	        if (col >= 1) {  // After 3 items, move to the next row
-	            col = 0;
-	            row++;
-	        }
 	    }
-	}	
+	}
 	
 	public void handleBuyNowButtonClick(VehicleListingDTO dto) {
 		try {
@@ -410,6 +407,24 @@ public class UserDashboard {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+	}
+	
+	public void handleListingManagement()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/ListingManagement.fxml"));
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	
 	}
 	
