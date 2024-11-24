@@ -134,6 +134,34 @@ public class VehicleDAO {
     	
     }
     
+    
+    public Vehicle getVehicle(int vehicleId)
+    {
+		String query = """
+				    SELECT v.make, v.model, v.year, v.price, v.rental_price, v.average_rating, v.status
+				    FROM Vehicles v
+				    WHERE v.vehicle_id = ?
+				""";
+
+		try (Connection conn = utils.DatabaseConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
+
+			stmt.setInt(1, vehicleId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new Vehicle(rs.getString("make"), rs.getString("model"), rs.getInt("year"),
+						rs.getDouble("price"), rs.getDouble("rental_price"), rs.getDouble("average_rating")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+    }
+    
+    
+    
+    
     public String getVehicleName(int vehicleId)
     {
     	String query = """

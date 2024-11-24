@@ -107,7 +107,7 @@ public class AutoParts {
     private Label headlightsLabel;
 
     @FXML
-    private Label headligthsQuantity;
+    private Label headligthsQuantity, totalLabel;
 
     @FXML
     private Button logInPayPal;
@@ -157,7 +157,7 @@ public class AutoParts {
     @FXML
     private Label totalCost;
 
-    @FXML private Button userDashboardButton; 
+    @FXML private Button userDashboardButton,clearCartButton;; 
     @FXML private BorderPane rootPane;
      
     
@@ -175,6 +175,10 @@ public class AutoParts {
     	purchase2 = new AutoPartsPurchase();
     	purchase3 = new AutoPartsPurchase();
     	purchase4 = new AutoPartsPurchase();
+    	
+    	checkoutButton.setVisible(false);
+    	clearCartButton.setVisible(false);
+    	
     	}
     
 
@@ -198,12 +202,11 @@ public class AutoParts {
 		double total = quantity * 60;
 		clutchplateCost.setText("$" + total);
 		clutchplateQuantity.setText(String.valueOf(quantity));
-		clutchplateLabel.setVisible(true);
-		clutchplateCost.setVisible(true);
-		clutchplateQuantity.setVisible(true);
+		
 		checkoutButton.setVisible(true);
 		
 		purchase1 = new AutoPartsPurchase(userId, 9, quantity, total);
+		checkout();
 		
     }
 
@@ -226,12 +229,11 @@ public class AutoParts {
 		double total = quantity * 10;
 		engineOilCost.setText("$" + total);
 		engineOilQuantity.setText(String.valueOf(quantity));
-		engineOilLabel.setVisible(true);
-		engineOilCost.setVisible(true);
-		engineOilQuantity.setVisible(true);
+		
 		checkoutButton.setVisible(true);
 		
 		purchase2 = new AutoPartsPurchase(userId, 2, quantity, total);
+		checkout();
 		
     	
     }
@@ -256,12 +258,11 @@ public class AutoParts {
 		double total = quantity * 30;
 		fuelpumpCost.setText("$" + total);
 		fuelpumpQuantity.setText(String.valueOf(quantity));
-		fuelpumpLabel.setVisible(true);
-		fuelpumpCost.setVisible(true);
-		fuelpumpQuantity.setVisible(true);
+		
 		checkoutButton.setVisible(true);
 		
 		purchase3 = new AutoPartsPurchase(userId, 8, quantity, total);
+		checkout();
 		
     }
 
@@ -286,12 +287,11 @@ public class AutoParts {
 				double total = quantity * 15;
 				headlightsCost.setText("$" + total);
 				headligthsQuantity.setText(String.valueOf(quantity));
-				headlightsLabel.setVisible(true);
-				headlightsCost.setVisible(true);
-				headligthsQuantity.setVisible(true);	
+					
 				checkoutButton.setVisible(true);
 				
 				purchase4 = new AutoPartsPurchase(userId, 6, quantity, total);
+				checkout();
 
 	}
     	
@@ -300,7 +300,36 @@ public class AutoParts {
     
     public void checkout()
     {
+    	if(!(headligthsQuantity.getText().isEmpty()))
+    	{
+    		headlightsLabel.setVisible(true);
+    		headlightsCost.setVisible(true);
+    		headligthsQuantity.setVisible(true);
+    	}
+    	
+		if (!(fuelpumpQuantity.getText().isEmpty())) {
+			fuelpumpLabel.setVisible(true);
+			fuelpumpCost.setVisible(true);
+			fuelpumpQuantity.setVisible(true);
+		}
+	
+	
+		if (!(engineOilQuantity.getText().isEmpty())) {
+			engineOilLabel.setVisible(true);
+			engineOilCost.setVisible(true);
+			engineOilQuantity.setVisible(true);
+		}
+	    
+		if (!(clutchplateQuantity.getText().isEmpty())) {
+			clutchplateLabel.setVisible(true);
+			clutchplateCost.setVisible(true);
+			clutchplateQuantity.setVisible(true);
+		}
+		
+
+    	
     	checkoutButton.setVisible(false);
+    	clearCartButton.setVisible(true);
 		double total = 0;
 		if (clutchplateCost.isVisible()) {
 			total += Double.parseDouble(clutchplateCost.getText().substring(1));
@@ -320,19 +349,53 @@ public class AutoParts {
 	
     }
     
+    public void clearCart()
+    {
+    	headlightsLabel.setVisible(false);
+    	headlightsCost.setVisible(false);
+    	headlightsCost.setText("");
+    	headligthsQuantity.setVisible(false);
+    	headligthsQuantity.setText("");
+    	
+    	fuelpumpLabel.setVisible(false);
+    	fuelpumpCost.setVisible(false);
+    	fuelpumpCost.setText("");
+    	fuelpumpQuantity.setVisible(false);
+    	fuelpumpQuantity.setText("");
+    	
+    	engineOilLabel.setVisible(false);
+    	engineOilCost.setVisible(false);
+    	engineOilCost.setText("");
+    	engineOilQuantity.setVisible(false);
+    	engineOilQuantity.setText("");
+    	
+    	clutchplateLabel.setVisible(false);
+    	clutchplateCost.setVisible(false);
+    	clutchplateCost.setText("");
+    	clutchplateQuantity.setVisible(false);
+    	clutchplateQuantity.setText("");
+    	
+    	checkoutButton.setVisible(false);
+    	totalCost.setText("");
+    	carpartInvoice.setVisible(false);
+    	clearCartButton.setVisible(false);
+    }
+    
     public void handlePayNow()
 	{
 		paymentAnchor.setVisible(true);
 		carpartInvoice.setVisible(false);
+		clearCartButton.setVisible(false);
+		totalLabel.setText(totalCost.getText());
 	}
     
     
     public void handlePayment() throws SQLException
     {
-		if (choosePaymentMethod.getSelectedToggle() == null) {
-			showAlert("Error", "Please choose a payment method", Alert.AlertType.ERROR);
-			return;
-		}
+//		if (choosePaymentMethod.getSelectedToggle() == null) {
+//			showAlert("Error", "Please choose a payment method", Alert.AlertType.ERROR);
+//			return;
+//		}
 
 		 PaymentContext paymentContext = new PaymentContext();
 		 PaymentProcessor paymentProcessor = null;

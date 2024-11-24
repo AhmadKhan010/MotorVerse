@@ -37,4 +37,12 @@ public class VehicleListingDTO {
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
     public double getAverageRating() { return averageRating; }
     public void setAverageRating(double averageRating) { this.averageRating = averageRating; }
+    public void setMake(String make) { this.make = make; }
+    public void setModel(String model) { this.model = model; }
+    public void setYear(int year) { this.year = year; }
+    public void setPrice(double price) { this.price = price; }
+    public void setDescription(String description) { this.description = description; }
+    public void setSellerName(String sellerName) { this.sellerName = sellerName; }
+    public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
+    
 }

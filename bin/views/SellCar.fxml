@@ -109,7 +109,7 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="20.0" layoutY="558.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: d4d4d4; -fx-background-radius: 10;" AnchorPane.bottomAnchor="24.399999999999977" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="558.0">
+                              <AnchorPane layoutX="20.0" layoutY="549.2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: d4d4d4; -fx-background-radius: 10;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="549.2">
                                  <children>
                                     <Label layoutX="18.0" layoutY="29.0" prefHeight="42.0" prefWidth="174.0" text="Upload Photos">
                                        <font>
