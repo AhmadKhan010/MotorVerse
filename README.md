@@ -62,16 +62,9 @@ Motorverse is a comprehensive platform designed for managing automotive services
 2. Set up the database:
    - Import the provided SQL schema and data files into your MySQL/PostgreSQL database.
    - Update the database configuration in `application.properties`.
+   - Run the motorverse.sql file which would automatically create the database, tables and the data.
 
-3. Build and run the project:
-   ```bash
-   ./gradlew run
-   ```
-   or, if using Maven:
-   ```bash
-   mvn clean install
-   mvn exec:java
-   ```
+
 
 ---
 
