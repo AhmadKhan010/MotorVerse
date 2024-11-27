@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import models.User;
 import utils.SessionManager;
@@ -19,6 +20,7 @@ public class ProfileManagementController {
     @FXML private TextField phoneField;
     @FXML private TextField addressField;
     @FXML private TextField passwordField;
+    @FXML private BorderPane rootPane;
 
     private UserDAO userDAO;
     private User loggedInUser;
@@ -58,17 +60,15 @@ public class ProfileManagementController {
         if (userDAO.updateUser(loggedInUser)) {
             // Update the SessionManager to reflect the updated user name
             SessionManager.getInstance().setLoggedInUser(loggedInUser.getName());
-
-            // Close the current Profile Management window
-            Stage currentStage = (Stage) nameField.getScene().getWindow();
-            currentStage.close();
-
-            // Reopen the User Dashboard
+            
+            //Load user dashoard
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
-            Stage dashboardStage = new Stage();
-            dashboardStage.setScene(new Scene(loader.load()));
-            dashboardStage.setTitle("User Dashboard");
-            dashboardStage.show();
+            BorderPane userDashboard = loader.load();
+            Scene scene = new Scene(userDashboard);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+
         } else {
             showAlert("Error", "Failed to save changes.", Alert.AlertType.ERROR);
         }
@@ -82,6 +82,19 @@ public class ProfileManagementController {
             && !addressField.getText().isEmpty()
             && !passwordField.getText().isEmpty();
     }
+    
+    public void handleBack() throws IOException
+    {
+    	 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
+         BorderPane userDashboard = loader.load();
+         Scene scene = new Scene(userDashboard);
+         Stage stage = (Stage) rootPane.getScene().getWindow();
+         stage.setScene(scene);
+         stage.show();
+
+    	
+    }
+    
 
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);

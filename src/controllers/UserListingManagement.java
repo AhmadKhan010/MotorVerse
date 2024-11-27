@@ -136,6 +136,10 @@ public class UserListingManagement {
                  System.out.println("Failed to update the listing.");
              }
          }
+         else
+         {
+        	 showAlert("Error", "Please select a listing to update", Alert.AlertType.ERROR);
+         }
     }
     
     

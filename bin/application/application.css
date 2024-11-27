@@ -13,7 +13,13 @@
 
 /* Hover effect for buttons with transparent background */
 
-.button:hover {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white; /* Change text color for contrast */
+
+.usercircle {
+    -fx-fill: null; /* Make the circle's background transparent */
+    -fx-stroke: null; /* Remove any stroke for clarity */
+    -fx-background-radius: 50%; /* Ensure circular cropping */
+    -fx-background-image: url('resource/user.png'); /* Path to your image */
+    -fx-background-position: center; /* Center the image */
+    -fx-background-repeat: no-repeat; /* Prevent repetition */
+    -fx-background-size: cover; /* Scale image to fill the circle */
 }

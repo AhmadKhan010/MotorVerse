@@ -17,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,9 +54,13 @@ public class SellCar {
     @FXML
     private ToggleButton sellingToggle;
 
+    @FXML private ImageView imageView;
+    
     @FXML
     private ToggleGroup type;
     @FXML BorderPane rootPane;
+    @FXML private AnchorPane parentPane;
+    
     private boolean photoUploaded = false;
     String imagePath;
     private Stage stage;
@@ -62,7 +68,8 @@ public class SellCar {
     
     public void initialize()
     {
-    	
+   // 	imageView.fitWidthProperty().bind(parentPane.widthProperty());
+    //	imageView.fitHeightProperty().bind(parentPane.heightProperty());
     }
     
     
@@ -71,9 +78,18 @@ public class SellCar {
     	//Check input of all fields:
     	String Make = inputMake.getText();    
     	String Model = inputModel.getText();
-    	int year = Integer.parseInt(inputYear.getText());
-    	int price = Integer.parseInt(inputPrice.getText());
-    	String description = inputDescription.getText();
+    	int year, price;
+    	try {
+    	 year = Integer.parseInt(inputYear.getText());
+    	 price = Integer.parseInt(inputPrice.getText());
+    	}
+    	catch(NumberFormatException e)
+    	{
+			showAlert("Error", "Please enter a valid number", Alert.AlertType.ERROR);
+			return;
+    	}
+    			
+    			String description = inputDescription.getText();
     	String type = rentingToggle.isSelected()? "Renting":"Selling";
     	
     	//Check if all fields are filled:
@@ -115,7 +131,11 @@ public class SellCar {
 		User seller = SessionManager.getInstance().getCurrentUser();
 		int sellerID = seller.getUserId();
 		BigDecimal sellingprice = new BigDecimal(price);
-		Listing listing = new Listing(sellerID, vehicleID, sellingprice, new BigDecimal(0), description, type, imagePath);
+		Listing listing = null;
+		if(type.equals("Selling"))
+		 listing = new Listing(sellerID, vehicleID, sellingprice, new BigDecimal(0), description, type, imagePath);
+		else
+          listing = new Listing(sellerID, vehicleID, new BigDecimal(0), sellingprice, description, type, imagePath);
 		ListingDAO listingDAO = new ListingDAO();
 		listingDAO.insertListing(listing);
 		
@@ -129,8 +149,6 @@ public class SellCar {
      	inputPrice.clear();
      	inputDescription.clear();
      	
-     	
-
     }
     
     public void handlePhotoUpload() {

@@ -23,17 +23,19 @@ public class Main extends Application {
 			primaryStage.setResizable(true);
 			primaryStage.show();
 		} catch(Exception e) {
+			
 			e.printStackTrace();
 		}
 	}
 	
-	
-	
+    
 	// This comment should create a git conflit 
 	//Ahmed ali comments
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	
 	
 
 }
