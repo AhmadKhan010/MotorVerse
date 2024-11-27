@@ -110,7 +110,7 @@
                   </Button>
                   <ImageView fitHeight="65.0" fitWidth="80.0" layoutX="1204.0" layoutY="8.0" onMouseClicked="#handleProfileManagement" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resource/userAvatar.png" />
+                        <Image url="@../resource/user.png" />
                      </image>
                   </ImageView>
                </children>
