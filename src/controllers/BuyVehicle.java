@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -7,6 +10,7 @@ import java.time.LocalDate;
 import dao.PaymentDAO;
 import dao.PurchaseAgreementDAO;
 import dao.UserDAO;
+import dao.VehicleDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -29,7 +34,11 @@ import models.Payment;
 import models.PurchaseAgreement;
 import models.User;
 import models.VehicleListingDTO;
+import services.CreditCardPayment;
 import services.Invoice;
+import services.PayPalPayment;
+import services.PaymentContext;
+import services.PaymentProcessor;
 import utils.SessionManager;
 
 public class BuyVehicle {
@@ -41,13 +50,13 @@ public class BuyVehicle {
     private Button buyButton;
 
     @FXML
-    private Label buyingDescriptionLabel;
+    private TextArea buyingDescriptionLabel;
 
     @FXML
     private Label buyingMakeLabel;
 
     @FXML
-    private Label buyingModelLabel;
+    private Label buyingModelLabel,carName;
 
     @FXML
     private Label buyingPriceLabel,purchaseCostInvoice,insurancePackage,insurancePackageCost,premiumInvoice,totalInvoice;
@@ -55,7 +64,7 @@ public class BuyVehicle {
     @FXML BorderPane rootPane;
     	
     @FXML
-    private Label buyingRatingLabel,totalLabel,totalLabel2;
+    private Label buyingRatingLabel,totalLabel,totalLabel2,buyingYear;
 
     @FXML
     private Button cancelButtin;
@@ -104,17 +113,38 @@ public class BuyVehicle {
     String insuranceType;
     
     
-	public void setDto(VehicleListingDTO vehicle) {
+	public void setDto(VehicleListingDTO vehicle) throws FileNotFoundException {
 		this.vehicle = vehicle;
 		buyingMakeLabel.setText(vehicle.getMake());
 		buyingModelLabel.setText(vehicle.getModel());
 		buyingDescriptionLabel.setText(vehicle.getDescription());
 		buyingPriceLabel.setText("$" + vehicle.getPrice());
 		buyingRatingLabel.setText(String.valueOf(vehicle.getAverageRating()));
+		buyingYear.setText(String.valueOf(vehicle.getYear()));
+		
+		 vehicleImage.setFitWidth(579);
+	        vehicleImage.setFitHeight(309);
+	        vehicleImage.setPreserveRatio(false);
+	        vehicleImage.setSmooth(true);
+	        vehicleImage.setCache(true);
+	        
+	        String imagePath = vehicle.getImagePath();
+	        File file = new File(imagePath);
+	        if(file.exists())
+	        {
+	        	Image image = new Image(new FileInputStream(file));
+	        	vehicleImage.setImage(image);
+	        }
+	        else
+	        {
+	            imagePath = "/resource/Motoverse Logo.png";
+	            Image image = new Image(getClass().getResourceAsStream(imagePath));
+	            vehicleImage.setImage(image);
+	        }
 	}
 
 	
-	public void initialize()
+	public void initialize() 
 	{
 		insuranceOptionBox.getItems().addAll("None", "Collision", "PIP", "Engine Protection");
         insuranceOptionBox.setValue("None");
@@ -122,19 +152,8 @@ public class BuyVehicle {
         
         paymentAnchor.setVisible(false);
         
-        vehicleImage.setFitWidth(579);
-        vehicleImage.setFitHeight(309);
-        vehicleImage.setPreserveRatio(false);
-        vehicleImage.setSmooth(true);
-        vehicleImage.setCache(true);
-
-        try {
-            String imagePath = "/resource/Motoverse Logo.png";
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
-            vehicleImage.setImage(image);
-        } catch (Exception e) {
-            System.out.println("Image not found");
-        }
+       
+       
         
         
     }
@@ -145,13 +164,31 @@ public class BuyVehicle {
         premium = insuranceType.equals("None") ? 0.0 : utils.PremiumCalculator.calculatePremium(rentalPrice, insuranceType);
 
         total = rentalPrice  + premium;
-        totalLabel.setText("$" + total); totalLabel2.setText("$" + total);
+        totalLabel.setText("$" + total); 
         invoice = new Invoice(0,total, 0, insuranceType, vehicle);
         
-        handlePayment();
+       
+        invoicePane.setVisible(true);
+        carName.setText(vehicle.getMake() + " " + vehicle.getModel());
+        purchaseCostInvoice.setText("$"+vehicle.getPrice());
+        insurancePackageCost.setText("$"+utils.PremiumCalculator.getInsuranceRate(insuranceType));
+        insurancePackage.setText(insuranceType);
+        premiumInvoice.setText("$"+premium);
+        totalInvoice.setText("$"+total);
+        
+        
+        
     }
+	
+	public void handlePayNow()
+	{
+		handlePayment();
+	}
+	
+	
 
     public void handlePayment() {
+    	invoicePane.setVisible(false);
         paymentAnchor.setVisible(true);
         creditCardToggel.setSelected(true); // Default to credit card payment
         togglePaymentMethod(); // Ensure the correct tab is displayed
@@ -179,25 +216,13 @@ public class BuyVehicle {
         String cvvCode = cvv.getText().trim();
         LocalDate expiry = expiryDate.getValue();
 
-        if (name.isEmpty() || cardNum.isEmpty() || cvvCode.isEmpty() || expiry == null) {
-            showAlert("Missing Information", "All fields must be filled out", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (!cardNum.matches("\\d{16}")) {
-            showAlert("Invalid Card Number", "Card number must be 16 digits", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (!cvvCode.matches("\\d{3}")) {
-            showAlert("Invalid CVV", "CVV must be 3 digits", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (expiry.isBefore(LocalDate.now())) {
-            showAlert("Invalid Expiry Date", "Expiry date must be in the future", Alert.AlertType.ERROR);
-            return;
-        }
+        PaymentContext paymentContext = new PaymentContext();
+        PaymentProcessor paymentProcessor = null;
+        paymentProcessor = new CreditCardPayment(name, cardNum, expiry, cvvCode);
+        
+        paymentContext.setPaymentProcessor(paymentProcessor);
+        boolean paymentSuccessful =  paymentContext.executePayment(total);
+        
         User user = SessionManager.getInstance().getCurrentUser();
         int buyerId =  user.getUserId();
         int vehicleId = vehicle.getVehicleId();
@@ -207,6 +232,9 @@ public class BuyVehicle {
         UserDAO userDAO = new UserDAO();
         User seller = userDAO.getUser(vehicle.getSellerName());
         int sellerId = seller.getUserId();
+        
+        if(paymentSuccessful)
+        {
        
         PurchaseAgreement purchaseAgreement = new PurchaseAgreement(buyerId, user.getName(), vehicleId, LocalDate.now().toString(), price, insuranceOptionBox.getValue(), totalPremium, sellerId);
         PurchaseAgreementDAO purchaseAgreementDAO = new PurchaseAgreementDAO(purchaseAgreement);
@@ -215,38 +243,30 @@ public class BuyVehicle {
         Payment payment = new Payment(buyerId,price,"Credit Card");
         PaymentDAO.insertPayment(payment);
         
-        invoicePane.setVisible(true);
-        purchaseCostInvoice.setText("$"+vehicle.getPrice());
-        insurancePackageCost.setText("$"+premium);
-        insurancePackage.setText(insuranceType);
-        premiumInvoice.setText("$"+totalPremium);
-        totalInvoice.setText("$"+total);
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        vehicleDAO.updateVehicleStatus(vehicleId, "Sold");
+       
         
-        showAlert("Processing Payment","Processing Payment with amount $"+total+" for "+user.getName(), Alert.AlertType.INFORMATION);
+       // showAlert("Processing Payment","Processing Payment with amount $"+total+" for "+user.getName(), Alert.AlertType.INFORMATION);
         showAlert("Payment Successful", "Thank you for your payment!", Alert.AlertType.INFORMATION);
         paymentAnchor.setVisible(false); // Hide payment pane
         endBuy();
+        }
+        
+        
     }
 
-    public void handleConfirmPayPal(ActionEvent event) throws SQLException {
+    public void handleConfirmPayPal(ActionEvent event) throws SQLException, IOException {
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Missing Information", "Email and password are required", Alert.AlertType.ERROR);
-            return;
-        }
+        PaymentContext paymentContext = new PaymentContext();
+        PaymentProcessor paymentProcessor = null;
+        paymentProcessor = new PayPalPayment(email, password);
 
-        if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
-            showAlert("Invalid Email", "Please enter a valid email address", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (password.length() < 8) {
-            showAlert("Weak Password", "Password must be at least 8 characters", Alert.AlertType.ERROR);
-            return;
-        }
-
+        paymentContext.setPaymentProcessor(paymentProcessor);
+        boolean paymentSuccessful = paymentContext.executePayment(total);
+        
         User user = SessionManager.getInstance().getCurrentUser();
         int buyerId =  user.getUserId();
         int vehicleId = vehicle.getVehicleId();
@@ -257,6 +277,8 @@ public class BuyVehicle {
         User seller = userDAO.getUser(vehicle.getSellerName());
         int sellerId = seller.getUserId();
        
+        if(paymentSuccessful)
+        {
         PurchaseAgreement purchaseAgreement = new PurchaseAgreement(buyerId, user.getName(), vehicleId, LocalDate.now().toString(), price, insuranceOptionBox.getValue(), totalPremium, sellerId);
         PurchaseAgreementDAO purchaseAgreementDAO = new PurchaseAgreementDAO(purchaseAgreement);
         purchaseAgreementDAO.insertPurchaseAgreement();
@@ -264,15 +286,16 @@ public class BuyVehicle {
         Payment payment = new Payment(buyerId,price,"PayPal");
         PaymentDAO.insertPayment(payment);
         
-        invoicePane.setVisible(true);
-        purchaseCostInvoice.setText("$"+vehicle.getPrice());
-        insurancePackageCost.setText("$"+premium);
-        insurancePackage.setText(insuranceType);
-        premiumInvoice.setText("$"+totalPremium);
-        totalInvoice.setText("$"+total);
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        vehicleDAO.updateVehicleStatus(vehicleId, "Sold");
        
         showAlert("Payment Successful", "Thank you for your payment!", Alert.AlertType.INFORMATION);
         paymentAnchor.setVisible(false); // Hide payment pane
+        endBuy();
+        }
+		else {
+			
+		}
     }
     
     public void endBuy() throws IOException {
@@ -289,6 +312,29 @@ public class BuyVehicle {
 		stage.show();
 	    
 	}
+    
+    
+    public void testDrive()
+    {
+		// Open TestDrive:
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TestDrive.fxml"));
+		Parent root;
+		try {
+			root = loader.load();
+			TestDriveController controller = loader.getController();
+			controller.setVehicleId(vehicle.getVehicleId());
+			controller.setVehicleName(vehicle.getMake() + " " + vehicle.getModel());
+			
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene);
+			stage.setTitle("Test Drive - ");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
     public void handleCancel(ActionEvent event) {
         paymentAnchor.setVisible(false); // Hide payment pane

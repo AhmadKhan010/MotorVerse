@@ -15,9 +15,17 @@ import models.Payment;
 import models.RentalAgreement;
 import models.User;
 import models.VehicleListingDTO;
+import services.CreditCardPayment;
 import services.Invoice;
+import services.PayPalPayment;
+import services.PaymentContext;
+import services.PaymentProcessor;
+import utils.PremiumCalculator;
 import utils.SessionManager;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -26,6 +34,7 @@ import java.util.Map;
 import dao.PaymentDAO;
 import dao.RentalAgreementDAO;
 import dao.UserDAO;
+import dao.VehicleDAO;
 
 public class RentVehicle {
 
@@ -56,14 +65,34 @@ public class RentVehicle {
     private RadioButton creditCardToggle, payPalToggle;
 
     private VehicleListingDTO vehicle;
+    private VehicleDAO vehicleDAO;
     private Invoice invoice;
     int days;
     double total,premium;
     String insuranceType;
     
     
-    public void setDto(VehicleListingDTO vehicle) {
+    public void setDto(VehicleListingDTO vehicle) throws FileNotFoundException {
         this.vehicle = vehicle;
+        vehicleImage.setFitWidth(387);
+        vehicleImage.setFitHeight(245);
+        vehicleImage.setPreserveRatio(false);
+        vehicleImage.setSmooth(true);
+        vehicleImage.setCache(true);
+        String imagePath = vehicle.getImagePath();
+        File file = new File(imagePath);
+        if(file.exists())
+        {
+        	Image image = new Image(new FileInputStream(file));
+        	vehicleImage.setImage(image);
+        }
+        else
+        {
+            imagePath = "/resource/Motoverse Logo.png";
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            vehicleImage.setImage(image);
+        }
+
         makeLabel.setText(vehicle.getMake());
         modelLabel.setText(vehicle.getModel());
         descriptionArea.setText(vehicle.getDescription());
@@ -71,26 +100,12 @@ public class RentVehicle {
         ratingLabel.setText(String.valueOf(vehicle.getAverageRating()));
     }
 
-    public void initialize() {
+    public void initialize() throws SQLException {
+    	vehicleDAO = new VehicleDAO();
         insuranceOptionBox.getItems().addAll("None", "Collision", "PIP", "Engine Protection");
         insuranceOptionBox.setValue("None");
         paymentAnchor.setVisible(false);
         
-
-        vehicleImage.setFitWidth(387);
-        vehicleImage.setFitHeight(245);
-        vehicleImage.setPreserveRatio(false);
-        vehicleImage.setSmooth(true);
-        vehicleImage.setCache(true);
-
-        try {
-            String imagePath = "/resource/Motoverse Logo.png";
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
-            vehicleImage.setImage(image);
-        } catch (Exception e) {
-            System.out.println("Image not found");
-        }
-
         starPicture.setPreserveRatio(true);
         starPicture.setSmooth(true);
         starPicture.setCache(true);
@@ -121,7 +136,7 @@ public class RentVehicle {
         premium = insuranceType.equals("None") ? 0.0 : utils.PremiumCalculator.calculatePremium(rentalPrice, days, insuranceType);
 
         total = rentalPrice * days + premium;
-        totalLabel.setText("$" + total); totalLabel2.setText("$" + total);
+        totalLabel2.setText("$" + total);
         invoice = new Invoice(rentalPrice,0, days, insuranceType, vehicle);               
 
         handlePayment();
@@ -155,25 +170,12 @@ public class RentVehicle {
         String cvvCode = cvv.getText().trim();
         LocalDate expiry = expiryDate.getValue();
 
-        if (name.isEmpty() || cardNum.isEmpty() || cvvCode.isEmpty() || expiry == null) {
-            showAlert("Missing Information", "All fields must be filled out", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (!cardNum.matches("\\d{16}")) {
-            showAlert("Invalid Card Number", "Card number must be 16 digits", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (!cvvCode.matches("\\d{3}")) {
-            showAlert("Invalid CVV", "CVV must be 3 digits", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (expiry.isBefore(LocalDate.now())) {
-            showAlert("Invalid Expiry Date", "Expiry date must be in the future", Alert.AlertType.ERROR);
-            return;
-        }
+        PaymentContext paymentContext = new PaymentContext();
+        PaymentProcessor paymentProcessor = null;
+        paymentProcessor = new CreditCardPayment(name, cardNum, expiry, cvvCode);
+        
+        paymentContext.setPaymentProcessor(paymentProcessor);
+        boolean paymentSuccessful =  paymentContext.executePayment(total);
         
         User user = SessionManager.getInstance().getCurrentUser();
         int renterId =  user.getUserId();
@@ -185,9 +187,16 @@ public class RentVehicle {
         User seller = userDAO.getUser(vehicle.getSellerName());
         int sellerId = seller.getUserId();
         
+		if (!paymentSuccessful) {
+			return;
+		}
+        
         RentalAgreement rentalAgreement = new RentalAgreement(renterId, vehicleId, rentalPeriod, rentalCostTotal, insuranceType, totalPremium, sellerId);
         RentalAgreementDAO rentalAgreementDAO = new RentalAgreementDAO(rentalAgreement);
         rentalAgreementDAO.insertRentalAgreement();
+        
+        //Update Vehicle status to rented:
+        vehicleDAO.updateVehicleStatus(vehicle.getVehicleId(), "Rented");
         
         Payment payment = new Payment(user.getUserId(), total, "Credit Card");
         PaymentDAO.insertPayment(payment);
@@ -196,12 +205,12 @@ public class RentVehicle {
         
         invoicePane.setVisible(true);
         rentalCostInvoice.setText("$"+vehicle.getPrice());
-        insurancePackageCost.setText("$"+premium);
+        insurancePackageCost.setText("$"+PremiumCalculator.getInsuranceRate(insuranceType));
         rentDaysInvoice.setText(days+" days");
         insurancePackage.setText(insuranceType);
         premiumInvoice.setText("$"+totalPremium);
         totalInvoice.setText("$"+total);
-       
+        
         paymentAnchor.setVisible(false); // Hide payment pane
         showAlert("Payment Successful", "Thank you for your payment!", Alert.AlertType.INFORMATION);
         
@@ -210,21 +219,19 @@ public class RentVehicle {
     public void handleConfirmPayPal(ActionEvent event) throws SQLException {
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
+        
+        PaymentContext paymentContext = new PaymentContext();
+        PaymentProcessor paymentProcessor = null;
+        paymentProcessor = new PayPalPayment(email, password);
 
-        if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Missing Information", "Email and password are required", Alert.AlertType.ERROR);
-            return;
+        paymentContext.setPaymentProcessor(paymentProcessor);
+        boolean paymentSuccessful = paymentContext.executePayment(total);
+        
+        if (!paymentSuccessful) {
+        	return;
         }
         
-        if (!email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
-            showAlert("Invalid Email", "Please enter a valid email address", Alert.AlertType.ERROR);
-            return;
-        }
-
-        if (password.length() < 8) {
-            showAlert("Weak Password", "Password must be at least 8 characters", Alert.AlertType.ERROR);
-            return;
-        }
+       
         User user = SessionManager.getInstance().getCurrentUser();
         int renterId =  user.getUserId();
         int vehicleId = vehicle.getVehicleId();
@@ -235,10 +242,15 @@ public class RentVehicle {
         User seller = userDAO.getUser(vehicle.getSellerName());
         int sellerId = seller.getUserId();
         
+        //Insert Rental Agreement:
         RentalAgreement rentalAgreement = new RentalAgreement(renterId, vehicleId, rentalPeriod, rentalCost, insuranceType, totalPremium, sellerId);
         RentalAgreementDAO rentalAgreementDAO = new RentalAgreementDAO(rentalAgreement);
         rentalAgreementDAO.insertRentalAgreement();
         
+        //Update Vehicle status to rented:
+        vehicleDAO.updateVehicleStatus(vehicle.getVehicleId(), "Rented");
+        
+        //Insert Payment
         Payment payment = new Payment(user.getUserId(), total, "PayPal");
         PaymentDAO.insertPayment(payment);
         
@@ -262,7 +274,7 @@ public class RentVehicle {
 		invoicePane.setVisible(false);
 		//Open UserDashboard:
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/RentVehicle.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/UserDashboard.fxml"));
 		Parent root = loader.load();
 		Stage stage = (Stage) rootPane.getScene().getWindow();
 		stage.setScene(new Scene(root));

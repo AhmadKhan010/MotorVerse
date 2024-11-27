@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +29,9 @@ import models.Vehicle;
 import models.VehicleListingDTO;
 import utils.SessionManager;
 import javafx.scene.Node ;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.File;
 
 
 public class UserDashboard {
@@ -50,6 +54,7 @@ public class UserDashboard {
 	@FXML private BorderPane rootPane;
 	@FXML private Label yearLabel;
 	@FXML private Label filterText;
+	@FXML private ScrollPane userScrollPane;
 	//@FXML private ComboBox<String> statusFilter;
 	VehicleDAO VehicleDAO;
 	private Stage stage;
@@ -100,10 +105,10 @@ public class UserDashboard {
 
 	// Add this method to handle the Profile Management button click
 	@FXML
-	private void handleProfileManagement(ActionEvent event) {
+	private void handleProfileManagement() {
 	    try {
 	        Parent root = FXMLLoader.load(getClass().getResource("/views/ProfileManagement.fxml"));
-	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        Stage stage = (Stage) rootPane.getScene().getWindow();
 	        stage.setScene(new Scene(root));
 	        stage.show();
 	    } catch (IOException e) {
@@ -140,7 +145,7 @@ public class UserDashboard {
 	    }
 
 	
-	public void handleBuyCar() {
+	public void handleBuyCar() throws FileNotFoundException {
 		System.out.println("Buy Car Button Clicked");
 		
 		currentRole="Buyer";
@@ -148,9 +153,10 @@ public class UserDashboard {
         vehicleGrid.getChildren().clear();
         // Add the vehicles to the grid
         priceSlider.setMin(0);
-        priceSlider.setMax(100000);  // Max price for the slider (can adjust based on your data)
-        priceSlider.setBlockIncrement(1000);  // Set the step size for slider
-        priceSlider.setValue(30000);  // Set a default value
+        priceSlider.setMax(1000000);  // Max price for the slider (can adjust based on your data)
+        priceSlider.setBlockIncrement(2000);  // Set the step size for slider
+        priceSlider.setValue(100000);  // Set a default value
+        userScrollPane.setVisible(true);
         loadVehicles("Selling");
         makeFilter.setVisible(true);
         yearFilter.setVisible(true);
@@ -163,7 +169,7 @@ public class UserDashboard {
         
 	}
 	
-	public void handleRentCar() {
+	public void handleRentCar() throws FileNotFoundException {
 
 		currentRole = "Renter";
 		vehicleGrid.getChildren().clear();
@@ -208,7 +214,7 @@ public class UserDashboard {
 	
 	
 	// Updated Function to Create a Vehicle Card
-	private HBox createVehicleCard(VehicleListingDTO dto) {
+	private HBox createVehicleCard(VehicleListingDTO dto) throws FileNotFoundException {
 	    // Vehicle Image
 	    ImageView vehicleImage = new ImageView();
 	    vehicleImage.setFitWidth(300); // Set the width
@@ -216,16 +222,31 @@ public class UserDashboard {
 	    //vehicleImage.setPreserveRatio(true); // Maintain aspect ratio
 	    vehicleImage.setSmooth(true); // Enable smooth scaling
 	    
-	    // Load the image from the file path
 	    try {
-	        String imagePath = "/resource/Motoverse Logo.png"; // Image folder and filename
-	        Image image = new Image(getClass().getResourceAsStream(imagePath));
-	        vehicleImage.setImage(image);
+	        // The image path is stored in the database or user input
+	        File file = new File(dto.getImagePath()); // Create a File object with the path
+	        	
+	        // Check if the file exists
+	        if (!file.exists()) {
+	            System.err.println("Image file not found: " + dto.getImagePath());
+	            String imagePath = "/resource/Motoverse Logo.png";
+	            Image image = new Image(getClass().getResourceAsStream(imagePath));
+	            vehicleImage.setImage(image);
+	        }
+
+	        // Load the image from the file system using FileInputStream
+	        Image image = new Image(new FileInputStream(file));
+	        vehicleImage.setImage(image); // Set the image in the ImageView
+
+	    } catch (FileNotFoundException e) {
+	        System.err.println("Error loading image: " + e.getMessage());
+	        String imagePath = "/resource/Motoverse Logo.png";
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            vehicleImage.setImage(image);
 	    } catch (Exception e) {
-	        System.err.println("Error loading image for " + dto.getMake() + " " + dto.getModel() + ": " + e.getMessage());
-	        // Default image in case of error
-	        vehicleImage.setImage(new Image(getClass().getResourceAsStream("/resource/Motoverse Logo.png")));
+	        System.err.println("Unexpected error loading image: " + e.getMessage());
 	    }
+
 
 	    // Labels for vehicle details
 	    Label makeModelLabel = new Label(dto.getMake() + " " + dto.getModel());
@@ -267,7 +288,7 @@ public class UserDashboard {
 	    cardLayout.setPadding(new Insets(15)); // Padding inside the card
 	    cardLayout.setStyle(
 	        "-fx-border-color: orange; " +
-	        "-fx-background-color: #fdf3e7; " +
+	        "-fx-background-color: #fcf6f6; " +
 	        "-fx-border-radius: 10; " +
 	        "-fx-background-radius: 10; " +
 	        "-fx-effect: dropshadow(gaussian, #aaaaaa, 10, 0, 2, 2);"
@@ -276,13 +297,13 @@ public class UserDashboard {
 	    return cardLayout;
 	}
 
-	public void applyFilters(ActionEvent event)
+	public void applyFilters(ActionEvent event) throws FileNotFoundException
 	{
 		loadVehicles(currentRole=="Buyer"?"Selling":"Renting");
 		handlePriceDrag();
 	}
 
-	public void clearFilters(ActionEvent event) {
+	public void clearFilters(ActionEvent event) throws FileNotFoundException {
 		makeFilter.setValue(null);
 		yearFilter.setValue(null);
 		priceSlider.setValue(100000);
@@ -290,7 +311,7 @@ public class UserDashboard {
 		handlePriceDrag();
 	}
 	
-	private void loadVehicles(String listingType) {
+	private void loadVehicles(String listingType) throws FileNotFoundException {
 	    String make = makeFilter.getValue();
 	    Integer year = yearFilter.getValue();
 	    Double minPrice = 0.0;
@@ -426,6 +447,23 @@ public class UserDashboard {
 		}
 
 	
+	}
+	
+	public void handleCustomerSupport()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/views/CustomerSupport.fxml"));
+			stage = (Stage) rootPane.getScene().getWindow(); // Get the current stage
+			Scene scene = new Scene(root); // Set the new scene
+			scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+			stage.setScene(scene); // Apply the new scene to the stage
+			stage.setResizable(true);
+			stage.show(); // Show the stage
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	

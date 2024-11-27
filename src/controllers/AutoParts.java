@@ -166,6 +166,7 @@ public class AutoParts {
     int partId;
     AutoPartsPurchase purchase1,purchase2,purchase3,purchase4;
     User user; int userId;
+    AutoPartPurchaseDAO purchaseDAO;
     
     
     public void initialize() {
@@ -178,7 +179,7 @@ public class AutoParts {
     	
     	checkoutButton.setVisible(false);
     	clearCartButton.setVisible(false);
-    	
+    	purchaseDAO = new AutoPartPurchaseDAO();
     	}
     
 
@@ -198,6 +199,14 @@ public class AutoParts {
 			showAlert("Error", "Please enter a valid quantity", Alert.AlertType.ERROR);
 			return;
 		}
+		
+		//Check if quantity is available
+		if (!purchaseDAO.checkQuantity(9, quantity)) {
+			showAlert("Error", "Not enough quantity available", Alert.AlertType.ERROR);
+			return;
+		}
+		
+		
 		
 		double total = quantity * 60;
 		clutchplateCost.setText("$" + total);
@@ -226,6 +235,14 @@ public class AutoParts {
 			return;
 		}
 		
+		
+		if (!purchaseDAO.checkQuantity(2, quantity)) {
+            showAlert("Error", "Not enough quantity available", Alert.AlertType.ERROR);
+            return ;
+		}
+		
+		
+		
 		double total = quantity * 10;
 		engineOilCost.setText("$" + total);
 		engineOilQuantity.setText(String.valueOf(quantity));
@@ -252,6 +269,11 @@ public class AutoParts {
 		
 		if (quantity <= 0) {
 			showAlert("Error", "Please enter a valid quantity", Alert.AlertType.ERROR);
+			return;
+		}
+		
+		if (!purchaseDAO.checkQuantity(8, quantity)) {
+			showAlert("Error", "Not enough quantity available", Alert.AlertType.ERROR);
 			return;
 		}
 		
@@ -283,6 +305,12 @@ public class AutoParts {
 					showAlert("Error", "Please enter a valid quantity", Alert.AlertType.ERROR);
 					return;
 				}
+				
+				
+				if (!purchaseDAO.checkQuantity(6, quantity)) {
+					showAlert("Error", "Not enough quantity available", Alert.AlertType.ERROR);
+					return;
+				}
 
 				double total = quantity * 15;
 				headlightsCost.setText("$" + total);
@@ -305,6 +333,9 @@ public class AutoParts {
     		headlightsLabel.setVisible(true);
     		headlightsCost.setVisible(true);
     		headligthsQuantity.setVisible(true);
+    		
+    		
+    		
     	}
     	
 		if (!(fuelpumpQuantity.getText().isEmpty())) {

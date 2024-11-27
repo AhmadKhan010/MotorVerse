@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SellCar">
+<BorderPane fx:id="rootPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerSupportController">
    <top>
       <AnchorPane prefHeight="75.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
@@ -40,7 +40,7 @@
          <children>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="651.0" prefWidth="826.0" style="-fx-background-color: ffb347;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="459.0" prefWidth="730.0" style="-fx-background-color: F5F1ED; -fx-background-radius: 10;" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="22.399999999999977" AnchorPane.topAnchor="10.0">
+                  <AnchorPane fx:id="issueTicketPane" prefHeight="459.0" prefWidth="730.0" style="-fx-background-color: F5F1ED; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="22.399999999999977" AnchorPane.topAnchor="10.0">
                      <children>
                         <Label layoutX="302.0" layoutY="24.0" prefHeight="46.0" prefWidth="161.0" text="Support Ticket" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="24.0">
                            <font>
@@ -58,7 +58,7 @@
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <Button fx:id="bookButton" layoutX="335.0" layoutY="382.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 10;" text="Submit" textFill="WHITE">
+                        <Button fx:id="submitButton" layoutX="335.0" layoutY="382.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="31.0" prefWidth="96.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 10;" text="Submit" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -73,7 +73,7 @@
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="247.0" layoutY="134.0" prefHeight="26.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" AnchorPane.leftAnchor="248.79999999999995">
+                        <TextField fx:id="subjectField" layoutX="247.0" layoutY="134.0" prefHeight="26.0" prefWidth="269.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 2;" AnchorPane.leftAnchor="248.79999999999995">
                            <effect>
                               <DropShadow blurType="GAUSSIAN" offsetX="3.0" offsetY="3.0" spread="0.6">
                                  <color>
@@ -82,7 +82,7 @@
                               </DropShadow>
                            </effect>
                         </TextField>
-                        <TextField layoutX="247.0" layoutY="184.0" prefHeight="142.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #9A0F16; -fx-border-radius: 5; -fx-border-width: 2;" AnchorPane.leftAnchor="248.8">
+                        <TextField fx:id="descriptionField" layoutX="247.0" layoutY="184.0" prefHeight="142.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-background-radius: 5; -fx-border-color: #9A0F16; -fx-border-radius: 5; -fx-border-width: 2;" AnchorPane.leftAnchor="248.8">
                            <effect>
                               <DropShadow blurType="GAUSSIAN" offsetX="3.0" offsetY="3.0" spread="0.6">
                                  <color>
@@ -100,13 +100,13 @@
                         </DropShadow>
                      </effect>
                   </AnchorPane>
-                  <AnchorPane prefHeight="456.0" prefWidth="730.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                  <AnchorPane fx:id="myTicketsPane" prefHeight="456.0" prefWidth="730.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-border-width: 2;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                        <TableView fx:id="pendingTickets" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-border-width: 2;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Ticket ID" />
-                            <TableColumn prefWidth="75.0" text="Status" />
-                              <TableColumn prefWidth="558.3999725341797" text="Description" />
+                            <TableColumn fx:id="ticketIdColumn" prefWidth="75.0" text="Ticket ID" />
+                            <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
+                              <TableColumn fx:id="descriptionColumn" prefWidth="558.3999725341797" text="Description" />
                           </columns>
                         </TableView>
                         <Label layoutX="10.0" layoutY="13.0" prefHeight="30.0" prefWidth="148.0" text="Pending Ticket" AnchorPane.leftAnchor="15.0">
@@ -114,7 +114,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TableView layoutX="14.0" layoutY="324.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-border-width: 2;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="324.0">
+                        <TableView fx:id="closedTickets" layoutX="14.0" layoutY="324.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-border-color: #9A0F16; -fx-border-width: 2;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="324.0">
                            <columns>
                               <TableColumn prefWidth="75.0" text="Ticket ID" />
                               <TableColumn prefWidth="75.0" text="Status" />
@@ -157,12 +157,12 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button layoutX="68.0" layoutY="40.0" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: transparent;" text="My Ticket" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Button layoutX="68.0" layoutY="40.0" mnemonicParsing="false" onAction="#myTicketOn" prefHeight="50.0" style="-fx-background-color: transparent;" text="My Ticket" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button layoutY="90.0" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: transparent;" text="Isuue Ticket" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Button layoutY="90.0" mnemonicParsing="false" onAction="#issueTicketOn" prefHeight="50.0" style="-fx-background-color: transparent;" text="Isuue Ticket" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

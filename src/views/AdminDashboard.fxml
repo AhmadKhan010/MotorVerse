@@ -3,117 +3,252 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #F0F0F0;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.AdminDashboard">
-    <children>
-        <!-- Header Section -->
-        <HBox layoutX="0.0" layoutY="0.0" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #FFB347;" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <Label layoutX="20.0" layoutY="30.0" style="-fx-font-size: 28; -fx-font-family: 'Arial Bold';" text="Admin Dashboard" textFill="#333333" />
-            </children>
-        </HBox>
 
-        <!-- Navigation Panel -->
-        <VBox layoutX="0.0" layoutY="100.0" prefHeight="700.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;">
-            <children>
-                <Button onAction="#showUserManagement" prefHeight="50.0" prefWidth="200.0" text="User Management" />
-                <Button onAction="#showListingManagement" prefHeight="50.0" prefWidth="200.0" text="Listing Management" />
-                <Button onAction="#showTransactionManagement" prefHeight="50.0" prefWidth="200.0" text="Transaction Management" />
-                <Button onAction="#showReports" prefHeight="50.0" prefWidth="200.0" text="Generate Reports" />
-                <Button onAction="#logout" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF6347; -fx-text-fill: white;" text="Logout" />
-            </children>
-        </VBox>
-
-        <!-- Transaction Management Section -->
-        <AnchorPane fx:id="transactionManagementPane" layoutX="200.0" layoutY="100.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-            <children>
-                <!-- Controls -->
-                <Label layoutX="20.0" layoutY="20.0" text="Transaction Type:" />
-                <ComboBox fx:id="transactionTypeComboBox" layoutX="150.0" layoutY="15.0" prefWidth="200.0" />
-                <Button layoutX="370.0" layoutY="15.0" onAction="#loadTransactions" text="Search" />
-
-                <!-- TableView -->
-                <TableView fx:id="transactionTableView" layoutX="20.0" layoutY="60.0" prefHeight="500.0" prefWidth="950.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-                    <columns>
-                        <TableColumn fx:id="transactionIdColumn" prefWidth="120.0" text="Transaction ID" />
-                        <TableColumn fx:id="userColumn" prefWidth="150.0" text="User" />
-                        <TableColumn fx:id="vehicleColumn" prefWidth="150.0" text="Vehicle" />
-                        <TableColumn fx:id="dateColumn" prefWidth="150.0" text="Date" />
-                        <TableColumn fx:id="amountColumn" prefWidth="120.0" text="Amount" />
-                    </columns>
-                </TableView>
-
-                <!-- Delete Button -->
-                <Button layoutX="66.0" layoutY="652.0" onAction="#deleteTransaction" text="Delete Transaction" />
-            </children>
-        </AnchorPane>
-
-        <!-- User Management Section -->
-        <AnchorPane fx:id="userManagementPane" layoutX="200.0" layoutY="100.0" prefHeight="700.0" prefWidth="1000.0" visible="false">
-            <children>
-                <!-- Search Bar -->
-                <Label layoutX="20.0" layoutY="20.0" text="Search User:" />
-                <TextField fx:id="searchField" layoutX="100.0" layoutY="15.0" prefWidth="200.0" />
-                <Button layoutX="310.0" layoutY="15.0" onAction="#searchUser" text="Search" />
-                <Button layoutX="380.0" layoutY="15.0" onAction="#resetTable" text="Reset" />
-
-                <!-- TableView -->
-                <TableView fx:id="userTable" layoutX="20.0" layoutY="60.0" prefHeight="590.0" prefWidth="991.0" AnchorPane.bottomAnchor="49.60000000000002" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-                    <columns>
-                        <TableColumn fx:id="colUserId" text="User ID" />
-                        <TableColumn fx:id="colName" text="Name" />
-                        <TableColumn fx:id="colEmail" text="Email" />
-                        <TableColumn fx:id="colPhone" text="Phone Number" />
-                        <TableColumn fx:id="colRole" text="Role" />
-                    </columns>
-                </TableView>
-
-                <Button layoutX="77.0" layoutY="663.0" onAction="#editUser" text="Edit User" />
-                <Button layoutX="182.0" layoutY="663.0" onAction="#deleteUser" text="Delete User" />
-            </children>
-        </AnchorPane>
-
-        <!-- Listing Management Section -->
-        <AnchorPane fx:id="listingManagementPane" layoutX="200.0" layoutY="100.0" prefHeight="700.0" prefWidth="1000.0" visible="false">
-            <children>
-                <!-- Search Bar -->
-                <Label layoutX="20.0" layoutY="20.0" text="Search Listing:" />
-                <TextField fx:id="listingSearchField" layoutX="150.0" layoutY="15.0" prefWidth="200.0" />
-                <Button layoutX="370.0" layoutY="15.0" onAction="#searchListing" text="Search" />
-                <Button layoutX="450.0" layoutY="15.0" onAction="#resetListingTable" text="Reset" />
-
-                <!-- TableView -->
-                <TableView fx:id="listingTable" layoutY="60.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-                    <columns>
-                        <TableColumn fx:id="colListingId" text="Listing ID" />
-                        <TableColumn fx:id="colSellerId" text="Seller ID" />
-                        <TableColumn fx:id="colVehicleId" text="Vehicle ID" />
-                        <TableColumn fx:id="colPrice" text="Price" />
-                        <TableColumn fx:id="colRentalPrice" text="Rental Price" />
-                        <TableColumn fx:id="colDescription" text="Description" />
-                        <TableColumn fx:id="colListingType" text="Listing Type" />
-                    </columns>
-                </TableView>
-
-                <Button layoutX="78.0" layoutY="660.0" onAction="#deleteListing" text="Delete Listing" />
-            </children>
-        </AnchorPane>
-
-        <!-- Reports Section -->
-   <AnchorPane fx:id="reportsPane" layoutX="200.0" layoutY="100.0" prefHeight="700.0" prefWidth="1000.0" visible="false">
-    <children>
-        <Label layoutX="20.0" layoutY="20.0" text="Select Report Type:" />
-        <ComboBox fx:id="reportTypeComboBox" layoutX="150.0" layoutY="15.0" prefWidth="200.0" />
-        <Button layoutX="370.0" layoutY="15.0" onAction="#generateReport" text="Generate" />
-        <TableView fx:id="reportTableView" layoutY="61.0" prefHeight="625.0" prefWidth="1012.0" />
-    </children>
-</AnchorPane>
-
-    </children>
-</AnchorPane>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboard">
+   <center>
+      <AnchorPane style="-fx-background-color: #ffb347;">
+          <children>
+      
+              <!-- Transaction Management Section -->
+              <AnchorPane fx:id="transactionManagementPane" layoutX="200.0" layoutY="100.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                  <children>
+                      <!-- Controls -->
+                      <Label layoutX="20.0" layoutY="20.0" text="Transaction Type:" />
+                      <ComboBox fx:id="transactionTypeComboBox" layoutX="150.0" layoutY="15.0" prefWidth="200.0" promptText="Select Type" style="-fx-background-color: #c26f73;" />
+                      <Button layoutX="371.0" layoutY="11.0" onAction="#loadTransactions" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Search" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+      
+                      <!-- TableView -->
+                      <TableView fx:id="transactionTableView" layoutX="20.0" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+                          <columns>
+                              <TableColumn fx:id="transactionIdColumn" prefWidth="120.0" text="Transaction ID" />
+                              <TableColumn fx:id="userColumn" prefWidth="150.0" text="User" />
+                              <TableColumn fx:id="vehicleColumn" prefWidth="150.0" text="Vehicle" />
+                              <TableColumn fx:id="dateColumn" prefWidth="150.0" text="Date" />
+                              <TableColumn fx:id="amountColumn" prefWidth="120.0" text="Amount" />
+                          </columns>
+                      </TableView>
+      
+                      <!-- Delete Button -->
+                      <Button layoutX="40.0" layoutY="728.0" onAction="#deleteTransaction" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Delete Transaction" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.8">
+                     <color>
+                        <Color opacity="0.30000001192092896" />
+                     </color>
+                  </DropShadow>
+               </effect>
+              </AnchorPane>
+      
+              <!-- User Management Section -->
+              <AnchorPane fx:id="userManagementPane" layoutX="20.0" layoutY="10.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="20.399999999999977" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="10.400000000000091" AnchorPane.topAnchor="10.0">
+                  <children>
+                      <!-- Search Bar -->
+                      <Label layoutX="20.0" layoutY="20.0" text="Search User:">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="16.0" />
+                     </font>
+                  </Label>
+                      <TextField fx:id="searchField" layoutX="113.6" layoutY="15.8" prefWidth="200.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-radius: 8; -fx-border-width: 2;" AnchorPane.leftAnchor="113.6" AnchorPane.topAnchor="15.8" />
+                      <Button layoutX="334.6" layoutY="15.2" onAction="#searchUser" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Search" textFill="WHITE" AnchorPane.leftAnchor="334.6" AnchorPane.topAnchor="15.2">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                      <Button layoutX="415.0" layoutY="15.2" onAction="#resetTable" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Reset" textFill="WHITE" AnchorPane.leftAnchor="415.0" AnchorPane.topAnchor="15.2">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+      
+                      <!-- TableView -->
+                      <TableView fx:id="userTable" layoutX="20.0" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+                          <columns>
+                              <TableColumn fx:id="colUserId" text="User ID" />
+                              <TableColumn fx:id="colName" text="Name" />
+                              <TableColumn fx:id="colEmail" text="Email" />
+                              <TableColumn fx:id="colPhone" text="Phone Number" />
+                              <TableColumn fx:id="colRole" text="Role" />
+                          </columns>
+                      </TableView>
+      
+                      <Button layoutX="57.0" layoutY="637.0" onAction="#editUser" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Edit User" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                      <Button layoutX="193.0" layoutY="637.0" onAction="#deleteUser" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Delete User" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="130.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                  </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.8">
+                     <color>
+                        <Color opacity="0.30000001192092896" />
+                     </color>
+                  </DropShadow>
+               </effect>
+              </AnchorPane>
+      
+              <!-- Listing Management Section -->
+              <AnchorPane fx:id="listingManagementPane" layoutX="200.0" layoutY="100.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                  <children>
+                      <!-- Search Bar -->
+                      <Label layoutX="26.0" layoutY="20.0" text="Search Listing:" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Label>
+                      <TextField fx:id="listingSearchField" layoutX="135.0" layoutY="16.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-radius: 8; -fx-border-width: 2;" AnchorPane.leftAnchor="135.0" AnchorPane.topAnchor="16.0" />
+                      <Button layoutX="370.0" layoutY="15.0" onAction="#searchListing" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Search" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                      <Button layoutX="450.0" layoutY="15.0" onAction="#resetListingTable" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Reset" textFill="WHITE" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="15.2">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+      
+                      <!-- TableView -->
+                      <TableView fx:id="listingTable" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+                          <columns>
+                              <TableColumn fx:id="colListingId" text="Listing ID" />
+                              <TableColumn fx:id="colSellerId" text="Seller ID" />
+                              <TableColumn fx:id="colVehicleId" text="Vehicle ID" />
+                              <TableColumn fx:id="colPrice" text="Price" />
+                              <TableColumn fx:id="colRentalPrice" text="Rental Price" />
+                              <TableColumn fx:id="colDescription" text="Description" />
+                              <TableColumn fx:id="colListingType" text="Listing Type" />
+                          </columns>
+                      </TableView>
+      
+                      <Button layoutX="78.0" layoutY="660.0" onAction="#deleteListing" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Delete Listing" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                  </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.8">
+                     <color>
+                        <Color opacity="0.30000001192092896" />
+                     </color>
+                  </DropShadow>
+               </effect>
+              </AnchorPane>
+      
+              <!-- Reports Section -->
+         <AnchorPane fx:id="reportsPane" layoutX="200.0" layoutY="100.0" style="-fx-background-radius: 10; -fx-background-color: #f5f1ed;" visible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.4">
+          <children>
+              <Label layoutX="20.0" layoutY="20.0" text="Select Report Type:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Label>
+              <ComboBox fx:id="reportTypeComboBox" layoutX="157.0" layoutY="18.0" prefWidth="200.0" promptText="Report Type" style="-fx-background-color: #c26f73;" AnchorPane.leftAnchor="157.0" AnchorPane.topAnchor="18.0" />
+              <Button layoutX="370.0" layoutY="15.0" onAction="#generateReport" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Generate" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+              <TableView fx:id="reportTableView" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0" />
+          </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.8">
+                     <color>
+                        <Color opacity="0.4000000059604645" />
+                     </color>
+                  </DropShadow>
+               </effect>
+      </AnchorPane>
+      
+          </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="86.0" prefWidth="1212.0" style="-fx-background-color: #ffb347;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="1196.0" layoutY="23.0" onAction="#logout" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Logout" textFill="WHITE" AnchorPane.bottomAnchor="23.200000000000003" AnchorPane.rightAnchor="105.6" AnchorPane.topAnchor="23.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="86.0" fitWidth="106.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="61.0" fitWidth="70.0" layoutX="1204.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.400000000000006" AnchorPane.rightAnchor="27.799999999999955" AnchorPane.topAnchor="12.0">
+               <image>
+                  <Image url="@../resource/userAvatar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: ffb347;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefWidth="250.0" style="-fx-background-color: #F5F1ED; -fx-background-radius: 10;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Button layoutY="30.0" onAction="#showUserManagement" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="User Management" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutY="84.4000015258789" onAction="#showListingManagement" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Listing Management" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutY="139.8000030517578" onAction="#showTransactionManagement" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Transaction Management" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button layoutY="194.0" onAction="#showReports" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Generate Reports" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Separator layoutX="10.4" layoutY="192.0" prefWidth="200.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="10.400000000000006" />
+                  <Separator layoutX="10.4" layoutY="137.0" prefWidth="200.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="10.400000000000006" />
+                  <Separator layoutX="10.4" layoutY="247.0" prefWidth="200.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="10.400000000000006" />
+                  <Separator layoutX="10.4" layoutY="82.0" prefWidth="200.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="10.400000000000006" />
+               </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" offsetX="5.0" offsetY="5.0" spread="0.5">
+                     <color>
+                        <Color opacity="0.4000000059604645" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

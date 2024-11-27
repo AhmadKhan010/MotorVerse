@@ -10,6 +10,19 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
+	
+	
+	User user;
+	
+	public UserDAO() {
+		
+	}
+	
+	public UserDAO(User user) {
+		this.user = user;
+	}
+	
+	
     // Insert user into the database
     public boolean insertUser(User user) {
         String sql = "INSERT INTO Users (name, email, password, phone_number, address, role) VALUES (?, ?, ?, ?, ?, ?)";

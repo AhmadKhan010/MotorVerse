@@ -21,7 +21,7 @@ public class VehicleDAO {
 	    	{ 
     		query = """
 	            SELECT v.vehicle_id, v.make, v.model, v.year, v.price,
-	                   l.description, u.name AS seller_name, v.image_path, v.average_rating
+	                   l.description, u.name AS seller_name, l.image_path, v.average_rating
 	            FROM Vehicles v
 	            JOIN Listings l ON v.vehicle_id = l.vehicle_id
 	            JOIN Users u ON l.seller_id = u.user_id
@@ -36,7 +36,7 @@ public class VehicleDAO {
     	{
     		query = """
     	            SELECT v.vehicle_id, v.make, v.model, v.year, l.rental_price AS price,
-    	                   l.description, u.name AS seller_name, v.image_path, v.average_rating
+    	                   l.description, u.name AS seller_name, l.image_path, v.average_rating
     	            FROM Vehicles v
     	            JOIN Listings l ON v.vehicle_id = l.vehicle_id
     	            JOIN Users u ON l.seller_id = u.user_id
@@ -158,9 +158,6 @@ public class VehicleDAO {
 		}
 		return null;
     }
-    
-    
-    
     
     public String getVehicleName(int vehicleId)
     {

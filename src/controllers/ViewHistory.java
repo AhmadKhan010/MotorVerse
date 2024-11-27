@@ -1,5 +1,6 @@
 package controllers;
 
+import dao.AutoPartPurchaseDAO;
 import dao.PurchaseAgreementDAO;
 import dao.RentalAgreementDAO;
 import dao.VehicleDAO;
@@ -10,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.fxml.FXML;
+import models.AutoPartsPurchase;
 import models.PurchaseAgreement;
 import models.RentalAgreement;
 import models.User;
@@ -24,7 +26,7 @@ public class ViewHistory {
     private VBox purchaseVbox;
 
     @FXML
-    private VBox rentalVbox;
+    private VBox rentalVbox,autoPartsVBox;
     private User user;
 
     public void initialize() throws SQLException {
@@ -34,6 +36,9 @@ public class ViewHistory {
 
         // Load the rental history
         loadRentals();
+        
+        // Load the auto parts purchase history
+        loadAutoParts();
     }
 
     private void loadPurchases() throws SQLException {
@@ -121,4 +126,48 @@ public class ViewHistory {
         // Add spacing between each rental card
         rentalVbox.setSpacing(15);
     }
+    
+    
+    private void loadAutoParts() throws SQLException {
+        // Get the list of auto parts purchases for the current user
+        AutoPartPurchaseDAO autoPartPurchaseDAO = new AutoPartPurchaseDAO();
+        List<AutoPartsPurchase> autoPartsPurchases = autoPartPurchaseDAO.getAutoPartsPurchases(user.getUserId());
+
+        // Clear the VBox to avoid duplicate entries
+        autoPartsVBox.getChildren().clear();
+
+        for (AutoPartsPurchase purchase : autoPartsPurchases) {
+            // Create a styled HBox for each purchase
+            HBox partBox = new HBox(10); // Spacing between elements
+            partBox.setStyle("-fx-padding: 10; -fx-border-color: green; -fx-border-width: 2; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #DFFFD6;");
+            partBox.setPadding(new Insets(10));
+
+            // Create labels for auto parts purchase details
+            Label partNameLabel = new Label("Part: " + purchase.getPartName());
+            partNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+            Label quantityLabel = new Label("Quantity: " + purchase.getQuantity());
+            quantityLabel.setFont(Font.font("Arial", 12));
+
+            Label totalPriceLabel = new Label("Total Price: $" + purchase.getTotalPrice());
+            totalPriceLabel.setFont(Font.font("Arial", 12));
+            
+            Label purchaseDateLabel = new Label("Date: " + purchase.getPurchaseDate());
+            purchaseDateLabel.setFont(Font.font("Arial", 12));
+
+            // Add the labels to the HBox
+            partBox.getChildren().addAll(partNameLabel, quantityLabel, totalPriceLabel,purchaseDateLabel);
+
+            // Add the HBox to the auto parts VBox
+            autoPartsVBox.getChildren().add(partBox);
+        }
+
+        // Add spacing between each auto part purchase card
+        autoPartsVBox.setSpacing(15);
+    }
+
+    
+    
+    
+    
 }
