@@ -111,7 +111,7 @@ Motorverse/
   [](mailto:)
 - **Ahmad**  
   CS Major, 5th Semester, FAST NUCES  
-  [](mailto:)
+  [ahmadkhanmarwat8@gmail.com](mailto:ahmadkhanmarwat8@gmail.com)
 
 ---
 
