@@ -1,7 +1,3 @@
-Here's the corrected **README.md** for the **Motorverse** project, reflecting that the platform is specifically for cars and excludes bikes:
-
----
-
 # Motorverse 🚗  
 
 Motorverse is a comprehensive platform designed for managing automotive services, including the buying and selling of new and used cars, purchasing auto parts and accessories, renting vehicles, and obtaining insurance. The system provides a seamless, user-friendly experience, catering to buyers, sellers, renters, and administrators.
@@ -18,8 +14,8 @@ Motorverse is a comprehensive platform designed for managing automotive services
   - Post and manage car listings.  
   - Request test drives for selected cars.
 
-- **Auto Parts and Accessories**  
-  - Browse and purchase auto parts and accessories.  
+- **Auto Parts**  
+  - Browse and purchase auto parts.  
   - Integrated inventory management for real-time stock updates.
 
 - **Car Rentals**  
@@ -27,7 +23,7 @@ Motorverse is a comprehensive platform designed for managing automotive services
   - Manage rental history and return rented cars seamlessly.
 
 - **Insurance Services**  
-  - Purchase and renew car insurance with tailored options.
+  - Purchase car insurance with tailored options.
 
 - **Administrator Tools**  
   - Manage users, transactions, and listings.  
@@ -41,11 +37,9 @@ Motorverse is a comprehensive platform designed for managing automotive services
 ## Technology Stack 🛠️
 
 - **Backend:** Java  
-- **Frontend:** JavaFX (or Swing, if applicable)  
-- **Database:** MySQL or PostgreSQL  
-- **Payment Integration:** Stripe or PayPal (optional)  
+- **Frontend:** JavaFX 
+- **Database:** MySQL  
 - **Tools and Libraries:**  
-  - Hibernate for ORM  
   - Scene Builder for JavaFX GUI development  
   - JUnit for testing
 
@@ -98,8 +92,6 @@ Motorverse/
 │   │   │   └── assets/            # Images, icons, and other assets
 │   ├── test/                      # Test cases
 ├── README.md                      # Project documentation
-├── build.gradle                   # Gradle build script
-└── pom.xml                        # Maven build file (if applicable)
 ```
 
 ---
@@ -121,6 +113,12 @@ Motorverse/
 - **Qusai Mansoor**  
   CS Major, 5th Semester, FAST NUCES  
   [qusaimansoor00@gmail.com](mailto:qusaimansoor00@gmail.com)
+- **Ahmed Ali**  
+  CS Major, 5th Semester, FAST NUCES  
+  [](mailto:)
+- **Ahmad**  
+  CS Major, 5th Semester, FAST NUCES  
+  [](mailto:)
 
 ---
 
