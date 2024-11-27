@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="711.0" prefWidth="1084.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReturnVehicle">
+   <top>
+      <Pane prefHeight="38.0" prefWidth="890.0" style="-fx-background-color: FFB347;" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <Pane prefHeight="369.0" prefWidth="42.0" style="-fx-background-color: FFB347;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="673.0" prefWidth="358.0" style="-fx-background-color: FFB347;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="paymentAnchor" layoutX="5.0" layoutY="3.0" prefHeight="666.0" prefWidth="338.0" style="-fx-background-color: f5f1ed; -fx-background-radius: 10;" visible="false">
+               <children>
+                  <Label layoutX="25.0" layoutY="86.0" text="Choose Payment Method">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="creditCardToggel" layoutX="43.0" layoutY="125.0" mnemonicParsing="false" onAction="#creditCardOn" text="Credit Card">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choosePaymentMethod" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="debitCardToggel" layoutX="178.0" layoutY="125.0" mnemonicParsing="false" text="Debit Card">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choosePaymentMethod" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="bankTransferToggel" layoutX="44.0" layoutY="152.0" mnemonicParsing="false" text="Bank Transfer">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choosePaymentMethod" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="paypalToggel" layoutX="178.0" layoutY="152.0" mnemonicParsing="false" onAction="#payPalOn" text="Pay Pal">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choosePaymentMethod" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <Label layoutX="24.0" layoutY="31.0" text="Total :" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="Arial" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalCost" layoutX="106.0" layoutY="36.0" prefHeight="23.0" prefWidth="103.0" text="3000">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="208.0" layoutY="36.0" prefHeight="23.0" prefWidth="18.0" text="/-">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.4" layoutY="183.0" prefWidth="200.0" AnchorPane.leftAnchor="10.4" AnchorPane.rightAnchor="10.399999999999977" />
+                  <AnchorPane fx:id="creditCardTab" prefHeight="466.0" prefWidth="200.0" style="-fx-background-color: f5f1ed;" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0">
+                     <children>
+                        <ImageView fitHeight="176.0" fitWidth="291.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="14.0">
+                           <image>
+                              <Image url="@../resource/Creditcard.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="16.0" layoutY="214.0" text="Name">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="173.0" layoutY="214.0" text="Expiration">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="16.0" layoutY="296.0" text="Credit Card Number">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="226.0" layoutY="296.0" text="CVV">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="expiryDate" layoutX="173.0" layoutY="238.0" prefHeight="26.0" prefWidth="136.0" />
+                        <TextField fx:id="nameField" layoutX="14.0" layoutY="239.0" />
+                        <TextField fx:id="cardNumber" layoutX="14.0" layoutY="322.0" prefHeight="26.0" prefWidth="186.0" />
+                        <TextField fx:id="cvv" layoutX="226.0" layoutY="322.0" prefHeight="26.0" prefWidth="80.0" />
+                        <Button fx:id="submitPayment" layoutX="180.0" layoutY="372.0" mnemonicParsing="false" onAction="#handlePayment" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #9a0f16; -fx-background-radius: 8;" text="Submit" textFill="WHITE" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="cancelPayment" layoutX="16.0" layoutY="372.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="38.0" prefWidth="130.0" style="-fx-background-color: #9a0f16; -fx-background-radius: 8;" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="180.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </AnchorPane>
+                  <AnchorPane fx:id="payPalTab" prefHeight="500.0" prefWidth="334.0" style="-fx-background-color: f5f1ed;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0">
+                     <children>
+                        <ImageView fitHeight="176.0" fitWidth="291.0" layoutX="19.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="14.0">
+                           <image>
+                              <Image url="@../resource/Paypal.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="18.0" layoutY="105.0" text="Email">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="18.0" layoutY="167.0" text="Password">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailField" layoutX="16.0" layoutY="130.0" prefHeight="26.0" prefWidth="291.0" />
+                        <TextField fx:id="passwordField" layoutX="16.0" layoutY="193.0" prefHeight="26.0" prefWidth="291.0" />
+                        <Button fx:id="logInPayPal" layoutX="19.0" layoutY="232.0" mnemonicParsing="false" onAction="#handlePayment" prefHeight="38.0" prefWidth="291.0" style="-fx-background-color: #2790c3;" text="Log In to PayPal" />
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children></Pane>
+   </right>
+   <center>
+      <AnchorPane prefHeight="673.0" prefWidth="643.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="87.0" layoutY="71.0" prefHeight="426.0" prefWidth="539.0">
+               <children>
+                  <VBox fx:id="vehicleDisplayVbox" layoutX="63.0" layoutY="-1.0" prefHeight="426.0" prefWidth="435.0">
+                     <children>
+                        <ScrollBar orientation="VERTICAL" prefHeight="430.0" prefWidth="14.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Text layoutX="179.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return Rented Vehicle">
+               <font>
+                  <Font name="Century" size="32.0" />
+               </font>
+            </Text>
+            <Button layoutX="21.0" layoutY="596.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: #9A0F16;" text="BACK" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

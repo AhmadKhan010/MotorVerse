@@ -21,6 +21,10 @@ public class PremiumCalculator {
 			float insuranceRate = insuranceRates.get(insuranceType);
 			return 0.1 * Price + insuranceRate;
 		}
+		
+		public static double getInsuranceRate(String insuranceType) {
+			return insuranceRates.get(insuranceType);
+		}
 	
 	//rentalPrice * days * (1 + insuranceRate / 100);
 }

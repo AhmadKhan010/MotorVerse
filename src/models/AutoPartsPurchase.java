@@ -11,19 +11,31 @@ public class AutoPartsPurchase {
     private int quantity;
     private double totalPrice;
     private LocalDateTime purchaseDate;
+    private String partName;
 
     // Constructors
     public AutoPartsPurchase() {
     	userId = 0;
     	quantity = 0;
     }
-
+          
     public AutoPartsPurchase(int userId, int partId, int quantity, double totalPrice) {
         this.userId = userId;
         this.partId = partId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
+    
+	public AutoPartsPurchase( int userId, int partId,String partName, int quantity, double totalPrice,
+			LocalDateTime purchaseDate) {
+		
+		this.userId = userId;
+		this.partId = partId;
+		this.partName = partName;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.purchaseDate = purchaseDate;
+	}
 
     // Getters and Setters
     public int getPurchaseId() {
@@ -72,6 +84,10 @@ public class AutoPartsPurchase {
 
     public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+    
+    public String getPartName() {
+    	        return partName;
     }
 
     @Override

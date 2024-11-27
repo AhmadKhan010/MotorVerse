@@ -1,24 +1,36 @@
 
 package services;
 
+import javafx.scene.control.Alert;
 
 public class PaymentContext {
     private PaymentProcessor paymentProcessor;
 
-    public void setPaymentProcessor(PaymentProcessor paymentProcessor) {
+    public void setPaymentProcessor(PaymentProcessor paymentProcessor)
+    {
         this.paymentProcessor = paymentProcessor;
     }
 
-    public void executePayment(double amount) {
+    public boolean executePayment(double amount) {
         if (paymentProcessor == null) {
-            System.out.println("No payment method selected.");
-            return;
+            showAlert("Payment Error", "No payment processor set. Please select a payment method.", Alert.AlertType.ERROR);
+            return false;
         }
 
         if (paymentProcessor.validate()) {
             paymentProcessor.processPayment(amount);
+            return true;
         } else {
-            System.out.println("Payment validation failed. Please try again.");
+            showAlert("Payment Error", "Payment validation failed. Please check your payment details.", Alert.AlertType.ERROR);
+            return false;
         }
     }
+    
+
+	 private void showAlert(String title, String message, Alert.AlertType type) {
+	        Alert alert = new Alert(type);
+	        alert.setTitle(title);
+	        alert.setContentText(message);
+	        alert.showAndWait();
+	    }
 }

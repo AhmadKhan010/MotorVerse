@@ -21,7 +21,7 @@ public class VehicleDAO {
 	    	{ 
     		query = """
 	            SELECT v.vehicle_id, v.make, v.model, v.year, v.price,
-	                   l.description, u.name AS seller_name, v.image_path, v.average_rating
+	                   l.description, u.name AS seller_name, l.image_path, v.average_rating
 	            FROM Vehicles v
 	            JOIN Listings l ON v.vehicle_id = l.vehicle_id
 	            JOIN Users u ON l.seller_id = u.user_id
@@ -36,7 +36,7 @@ public class VehicleDAO {
     	{
     		query = """
     	            SELECT v.vehicle_id, v.make, v.model, v.year, l.rental_price AS price,
-    	                   l.description, u.name AS seller_name, v.image_path, v.average_rating
+    	                   l.description, u.name AS seller_name, l.image_path, v.average_rating
     	            FROM Vehicles v
     	            JOIN Listings l ON v.vehicle_id = l.vehicle_id
     	            JOIN Users u ON l.seller_id = u.user_id
@@ -132,6 +132,31 @@ public class VehicleDAO {
     	//return the id of the vehicle that was just added
     	return vehicleExists(vehicle.getMake(), vehicle.getModel(), vehicle.getYear());
     	
+    }
+    
+    
+    public Vehicle getVehicle(int vehicleId)
+    {
+		String query = """
+				    SELECT v.make, v.model, v.year, v.price, v.rental_price, v.average_rating, v.status
+				    FROM Vehicles v
+				    WHERE v.vehicle_id = ?
+				""";
+
+		try (Connection conn = utils.DatabaseConnection.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(query)) {
+
+			stmt.setInt(1, vehicleId);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return new Vehicle(rs.getString("make"), rs.getString("model"), rs.getInt("year"),
+						rs.getDouble("price"), rs.getDouble("rental_price"), rs.getDouble("average_rating")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
     }
     
     public String getVehicleName(int vehicleId)

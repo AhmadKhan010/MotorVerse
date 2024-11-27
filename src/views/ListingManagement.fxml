@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserListingManagement">
+   <top>
+      <AnchorPane style="-fx-background-color: ffb347;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="219.0" layoutY="13.0" prefHeight="46.0" prefWidth="288.0" text="Edit Vehicle Listing" AnchorPane.bottomAnchor="14.399999999999999" AnchorPane.topAnchor="13.0">
+               <font>
+                  <Font name="Orbitron Bold" size="26.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="73.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
+               </image>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.4">
+                     <color>
+                        <Color opacity="0.30000001192092896" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane style="-fx-background-color: ffb347;">
+         <children>
+            <AnchorPane prefHeight="521.0" prefWidth="611.0" style="-fx-background-color: #f5f1ed; -fx-background-radius: 10;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="15.2" prefHeight="46.0" prefWidth="187.0" text="Car Information" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="13.0" layoutY="48.0" prefHeight="32.0" prefWidth="181.0" text="( All Information is Mandatory )" />
+                  <Label layoutX="144.6" layoutY="131.0" text="Make " AnchorPane.leftAnchor="144.6">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputMake" layoutX="219.0" layoutY="130.0" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-width: 2; -fx-border-radius: 8;" AnchorPane.leftAnchor="220.0" />
+                  <Label layoutX="139.0" layoutY="169.0" text="Model" AnchorPane.leftAnchor="139.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputModel" layoutX="219.0" layoutY="168.0" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-width: 2; -fx-border-radius: 8;" AnchorPane.leftAnchor="220.0" />
+                  <Label layoutX="155.0" layoutY="208.0" text="Year" AnchorPane.leftAnchor="155.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputYear" layoutX="220.0" layoutY="207.0" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-width: 2; -fx-border-radius: 8;" AnchorPane.leftAnchor="220.0" />
+                  <Label layoutX="141.0" layoutY="242.0" text="Price" AnchorPane.leftAnchor="141.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="23.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputPrice" layoutX="240.0" layoutY="244.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-width: 2; -fx-border-radius: 8;" AnchorPane.leftAnchor="240.00000000000003" />
+                  <Label layoutX="224.0" layoutY="244.0" prefHeight="27.0" prefWidth="14.0" text="\$">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="109.0" layoutY="308.0" text="Description" AnchorPane.leftAnchor="100.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputDescription" layoutX="220.0" layoutY="308.0" prefHeight="81.0" prefWidth="270.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-color: #9A0F16; -fx-border-width: 2; -fx-border-radius: 8;" />
+                  <ComboBox fx:id="listingsComboBox" layoutX="415.0" layoutY="62.0" prefWidth="150.0" promptText="Listings" style="-fx-background-color: #c26f73;" AnchorPane.leftAnchor="415.0" AnchorPane.topAnchor="62.0" />
+                  <Label alignment="CENTER" layoutX="395.0" layoutY="32.0" prefHeight="32.0" prefWidth="181.0" text="Choose a Listing to edit" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="32.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="400.0" layoutY="424.2" mnemonicParsing="false" onAction="#saveChanges" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="Save Changes" textFill="WHITE" AnchorPane.leftAnchor="400.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="photoUpload" layoutX="222.0" layoutY="424.0" mnemonicParsing="false" onAction="#handlePhotoUpload" style="-fx-background-color: lightgreen;" text="+ Upload" AnchorPane.leftAnchor="220.0" />
+                  <Label layoutX="149.0" layoutY="423.0" text="Image" AnchorPane.leftAnchor="149.0">
+                     <font>
+                        <Font name="Yu Gothic UI Semibold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="30.0" layoutY="470.0" mnemonicParsing="false" onAction="#handleBack" style="-fx-background-color: #9A0F16; -fx-background-radius: 8;" text="BACK" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" spread="0.8">
+                     <color>
+                        <Color opacity="0.4000000059604645" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

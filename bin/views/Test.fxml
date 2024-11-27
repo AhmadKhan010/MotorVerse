@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,26 +16,88 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserDashboard">
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserDashboard">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
+         <children>
+            <AnchorPane layoutX="200.0" layoutY="84.0" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ScrollPane centerShape="false" layoutX="-0.5" layoutY="-0.5" pannable="true" prefHeight="800.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <content>
+                        <AnchorPane prefHeight="800.0" prefWidth="998.0">
+                           <children>
+                              <VBox fx:id="vehicleGrid" prefHeight="786.0" prefWidth="983.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </center>
    <top>
       <AnchorPane prefHeight="75.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane layoutY="10.4" prefHeight="99.2" prefWidth="1435.2" style="-fx-background-color: FFB347;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="logoutButton" layoutX="1366.0" layoutY="24.0" mnemonicParsing="false" text="Logout" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="24.0" />
-                  <ImageView fx:id="logo" fitHeight="80.0" fitWidth="77.0" layoutX="15.2" layoutY="-1.6" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="-2.0">
+                  <Button fx:id="logoutButton" layoutX="1308.8" layoutY="23.4" mnemonicParsing="false" onAction="#handleLogout" prefHeight="34.0" prefWidth="119.0" style="-fx-border-color: #ff4500; -fx-background-color: transparent; -fx-border-image-width: 15; -fx-border-radius: 6;" text="Logout" textFill="RED" AnchorPane.rightAnchor="44.799999999999955" AnchorPane.topAnchor="23.4" />
+                  <ImageView fx:id="logo" fitHeight="80.0" fitWidth="77.0" layoutX="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.599999999999994" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0">
                      <image>
                         <Image url="@../resource/Motoverse_Logo-removebg-preview.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="welcomeLabel" layoutX="616.0" layoutY="29.0" prefHeight="28.0" prefWidth="167.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buying Menu" AnchorPane.leftAnchor="616.0" AnchorPane.rightAnchor="452.0" AnchorPane.topAnchor="29.0">
+                  <Label fx:id="welcomeLabel" layoutX="235.0" layoutY="22.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="User Dashboard" textFill="WHITE" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="997.8" AnchorPane.topAnchor="22.0">
                      <font>
                         <Font name="Orbitron Bold" size="22.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="1227.0" layoutY="21.0" onMouseClicked="#handleProfileManagement" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/user.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Button fx:id="historyButton1" layoutX="1050.0" layoutY="2.0" mnemonicParsing="false" onAction="#viewHistory" prefHeight="75.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="View History" textFill="#c91c1c">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Orbitron Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Separator layoutX="1044.0" layoutY="1.0" orientation="VERTICAL" prefHeight="78.0" prefWidth="0.0" />
+                  <Button fx:id="historyButton11" layoutX="898.0" layoutY="-1.0" mnemonicParsing="false" onAction="#buyAutoParts" prefHeight="81.0" prefWidth="146.0" style="-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buy Auto Parts" textFill="#c91c1c">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Orbitron Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Separator layoutX="894.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="6.0" />
+                  <Button fx:id="listingmanagementButton" layoutX="696.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleListingManagement" prefHeight="78.0" prefWidth="198.0" style="-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Listing Management" textFill="#c91c1c">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Orbitron Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Separator layoutX="694.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="6.0" />
+                  <Button fx:id="listingmanagementButton1" layoutX="520.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleCustomerSupport" prefHeight="83.0" prefWidth="174.0" style="-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Customer Support" textFill="#c91c1c">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Orbitron Bold" size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </children>
@@ -43,11 +108,11 @@
          <children>
             <AnchorPane prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="800.0" prefWidth="235.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="800.0" prefWidth="235.0" style="-fx-background-color: FFB347;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="buyCarButton" defaultButton="true" mnemonicParsing="false" onAction="#handleBuyCar" prefHeight="38.0" prefWidth="210.0" style="-fx-background-color: transparent; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buy" textFill="ORANGERED">
+                        <Button fx:id="buyCarButton" defaultButton="true" mnemonicParsing="false" onAction="#handleBuyCar" prefHeight="32.0" prefWidth="162.0" style="-fx-background-color: #9A0F16; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Buy a Vehicle" textFill="WHITE">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets left="30.0" top="20.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -56,9 +121,9 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="rentCarButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="210.0" text="Rent" textFill="ORANGERED">
+                        <Button fx:id="rentCarButton" mnemonicParsing="false" onAction="#handleRentCar" prefHeight="37.0" prefWidth="165.0" style="-fx-background-color: #9A0F16; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Rent a Vehicle" textFill="WHITE">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets left="30.0" top="20.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -67,9 +132,9 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="sellCarButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="210.0" text="Sell" textFill="ORANGERED">
+                        <Button fx:id="sellCarButton" mnemonicParsing="false" onAction="#handleSellCar" prefHeight="21.0" prefWidth="166.0" style="-fx-background-color: #9A0F16; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Sell a Vehicle" textFill="WHITE">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="10.0" left="30.0" top="20.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -78,9 +143,9 @@
                               <Font name="Orbitron Bold" size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="210.0" text="History" textFill="ORANGERED">
+                        <Button fx:id="historyButton" mnemonicParsing="false" onAction="#returnVehicle" prefHeight="30.0" prefWidth="166.0" style="-fx-background-color: #9A0F16; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.5, 0, 2);" text="Return a Vehicle" textFill="WHITE">
                            <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="10.0" left="30.0" top="10.0" />
                            </VBox.margin>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -91,7 +156,7 @@
                         </Button>
                         <HBox prefHeight="43.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="46.0" prefWidth="118.0" stylesheets="@../application/application.css" text="Filters" textFill="ORANGERED">
+                              <Label fx:id="filterText" prefHeight="46.0" prefWidth="118.0" stylesheets="@../application/application.css" text="Filters" textFill="ORANGERED">
                                  <padding>
                                     <Insets left="20.0" />
                                  </padding>
@@ -111,16 +176,22 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="26.0" prefWidth="221.0">
+                        <HBox prefHeight="26.0" prefWidth="221.0" spacing="15.0">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                            <children>
-                              <ComboBox fx:id="makeFilter" prefHeight="26.0" prefWidth="106.0" promptText="Model" />
-                              <ComboBox fx:id="brandFilter" prefHeight="26.0" prefWidth="106.0" promptText="Brand" />
+                              <ComboBox fx:id="makeFilter" prefHeight="26.0" prefWidth="106.0" promptText="Brand" style="-fx-background-color: #f7bf5e;" />
+                              <ComboBox fx:id="modelFilter" prefHeight="26.0" prefWidth="106.0" promptText="Model" style="-fx-background-color: #f7bf5e;">
+                                 <padding>
+                                    <Insets right="-6.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></ComboBox>
                            </children>
                         </HBox>
-                        <Label prefHeight="20.0" prefWidth="50.0" text="Price">
+                        <Label fx:id="priceText" prefHeight="20.0" prefWidth="50.0" text="Price">
                            <VBox.margin>
                               <Insets left="10.0" top="20.0" />
                            </VBox.margin>
@@ -128,30 +199,22 @@
                               <Font name="Orbitron Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Slider fx:id="priceSlider" blockIncrement="0.0" majorTickUnit="100000.0" max="100000.0" min="0.0" minorTickCount="0" onDragDetected="#handlePriceDrag" onDragDone="#handlePriceDrag" onDragEntered="#handlePriceDrag" onMouseDragged="#handlePriceDrag" prefHeight="29.0" prefWidth="200.0" showTickLabels="true" value="0.0">
-                           <VBox.margin>
-                              <Insets left="10.0" right="15.0" />
-                           </VBox.margin>
-                        </Slider>
-                        <Label text="Year">
-                           <VBox.margin>
-                              <Insets left="10.0" top="10.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="Orbitron Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Slider fx:id="yearSlider" blockIncrement="0.0" majorTickUnit="2024.0" max="2024.0" minorTickCount="0" prefHeight="14.0" prefWidth="213.0" showTickLabels="true" snapToTicks="true">
+                        <Slider fx:id="priceSlider" blockIncrement="0.0" majorTickUnit="100000.0" max="100000.0" min="0.0" minorTickCount="0" onDragDetected="#handlePriceDrag" onDragDone="#handlePriceDrag" onDragEntered="#handlePriceDrag" onMouseDragged="#handlePriceDrag" prefHeight="29.0" prefWidth="200.0" showTickLabels="true" style="-fx-control-inner-background: #f7c42a; -fx-background-radius: 10; -fx-padding: 5; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0.5, 0, 2);">
+						   <VBox.margin>
+						      <Insets left="10.0" right="15.0" />
+						   </VBox.margin>
+						</Slider>
+                        <Label fx:id="priceLabel" text="100000">
                            <padding>
-                              <Insets left="10.0" right="15.0" />
+                              <Insets left="90.0" />
                            </padding>
-                        </Slider>
-                        <ComboBox fx:id="yearFilter" prefWidth="150.0" promptText="Year">
+                        </Label>
+                        <ComboBox fx:id="yearFilter" prefWidth="150.0" promptText="Year" style="-fx-background-color: #f7bf5e;">
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets left="10.0" top="20.0" />
                            </VBox.margin>
                         </ComboBox>
-                        <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyFilters" prefHeight="38.0" prefWidth="98.0" text="Apply">
+                        <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyFilters" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: #f7c379;" text="Apply">
                            <VBox.margin>
                               <Insets left="70.0" top="30.0" />
                            </VBox.margin>
@@ -166,4 +229,7 @@
          </children>
       </AnchorPane>
    </left>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: FFB347;" stylesheets="@../application/application.css" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
